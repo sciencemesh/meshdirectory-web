@@ -2,6 +2,7 @@ package meshdirectory_web
 
 import (
 	"embed"
+	"io/fs"
 	"net/http"
 )
 
@@ -9,6 +10,7 @@ import (
 var spaDist embed.FS
 
 func ServeMeshDirectorySPA(w http.ResponseWriter, r *http.Request) {
-	var server = http.FileServer(http.FS(spaDist))
+    distFS, _ := fs.Sub(spaDist, "dist")
+	server := http.FileServer(http.FS(distFS))
 	server.ServeHTTP(w, r)
 }
