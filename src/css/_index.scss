@@ -1,0 +1,61 @@
+// CS3MESH4EOSC Branding
+@import '_variables.scss';
+
+.bg-primary-blue {
+  background-color: $primary-blue;
+}
+
+.bg-primary-grey {
+  background-color: $primary-grey;
+}
+
+.text-title {
+  font-family: $primary-fonts;
+}
+
+.text-description {
+  font-family: $secondary-fonts;
+}
+
+.provider-title {
+  padding: 2rem 0 2rem 0;
+  font-size: 2rem;
+  letter-spacing: .05rem;
+  opacity: .6;
+}
+
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
+  width: 100vw;
+  font-family: $primary-fonts;
+  font-style: normal;
+  font-size: 1rem;
+}
+
+ul {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  width: 100%;
+}
+
+#app {
+
+  height: 100%;
+}
+
+@mixin animate($val){
+  animation:$val;
+  -moz-animation:$val;
+  -webkit-animation:$val;
+  -o-animation:$val;
+  -ms-animation:$val;
+}

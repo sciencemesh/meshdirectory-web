@@ -1,0 +1,460 @@
+[
+  {
+    "name": "WWU",
+    "full_name": "University of Muenster",
+    "description": "University of Muenster ScienceMesh Test",
+    "organization": "WWU Muenster",
+    "domain": "uni-muenster.de",
+    "homepage": "http://www.uni-muenster.de",
+    "email": "daniel.mueller@uni-muenster.de",
+    "services": [
+      {
+        "host": "sciencemesh-test.uni-muenster.de",
+        "endpoint": {
+          "type": {
+            "name": "REVAD",
+            "description": "Reva Daemon Service"
+          },
+          "name": "sciencemesh-test.uni-muenster.de - REVAD",
+          "path": "https://sciencemesh-test.uni-muenster.de/api",
+          "is_monitored": true,
+          "properties": {
+            "API_VERSION": "0.1.0",
+            "ENABLE_HEALTH_CHECKS": "true",
+            "GRPC_PORT": "9600",
+            "METRICS_PATH": "/api/metrics"
+          }
+        },
+        "api_version": "0.1.0"
+      },
+      {
+        "host": "sciencemesh-test.uni-muenster.de",
+        "endpoint": {
+          "type": {
+            "name": "OCM",
+            "description": "OpenCloudMesh Service"
+          },
+          "name": "sciencemesh-test.uni-muenster.de - OCM",
+          "path": "https://sciencemesh-test.uni-muenster.de/api/ocm"
+        }
+      },
+      {
+        "host": "sciencemesh-test.uni-muenster.de",
+        "endpoint": {
+          "type": {
+            "name": "Webdav",
+            "description": "Web Distributed Authoring and Versioning Service"
+          },
+          "name": "sciencemesh-test.uni-muenster.de - Webdav",
+          "path": "https://sciencemesh-test.uni-muenster.de/api/remote.php/webdav/"
+        }
+      },
+      {
+        "host": "sciencemesh-test.uni-muenster.de",
+        "endpoint": {
+          "type": {
+            "name": "GATEWAY",
+            "description": "CS3 Gateway Service"
+          },
+          "name": "sciencemesh-test.uni-muenster.de - GATEWAY",
+          "path": "sciencemesh-test.uni-muenster.de:9600"
+        }
+      }
+    ],
+    "properties": {
+      "AUTHORIZED": "true",
+      "ORGANIZATION": "WWU Muenster"
+    }
+  },
+  {
+    "name": "CESNET",
+    "full_name": "CESNET a.l.e.",
+    "description": "CESNET ScienceMesh Test",
+    "organization": "CESNET a.l.e.",
+    "domain": "cesnet.cz",
+    "homepage": "https://www.cesnet.cz/",
+    "email": "du-support@cesnet.cz",
+    "services": [
+      {
+        "host": "sciencemesh.cesnet.cz",
+        "endpoint": {
+          "type": {
+            "name": "OCM",
+            "description": "OpenCloudMesh Service"
+          },
+          "name": "sciencemesh.cesnet.cz - OCM",
+          "path": "https://sciencemesh.cesnet.cz/iop/ocm"
+        }
+      },
+      {
+        "host": "sciencemesh.cesnet.cz",
+        "endpoint": {
+          "type": {
+            "name": "REVAD",
+            "description": "Reva Daemon Service"
+          },
+          "name": "sciencemesh.cesnet.cz - REVAD",
+          "path": "https://sciencemesh.cesnet.cz/iop",
+          "is_monitored": true,
+          "properties": {
+            "ENABLE_HEALTH_CHECKS": "true",
+            "GRPC_PORT": "443",
+            "METRICS_PATH": "/iop/metrics"
+          }
+        }
+      },
+      {
+        "host": "sciencemesh.cesnet.cz",
+        "endpoint": {
+          "type": {
+            "name": "Webdav",
+            "description": "Web Distributed Authoring and Versioning Service"
+          },
+          "name": "sciencemesh.cesnet.cz - Webdav",
+          "path": "https://sciencemesh.cesnet.cz/iop/remote.php/webdav/"
+        }
+      }
+    ],
+    "properties": {
+      "AUTHORIZED": "true"
+    }
+  },
+  {
+    "name": "CERN",
+    "full_name": "CERN",
+    "description": "CERN ScienceMesh",
+    "organization": "CERN",
+    "domain": "cern.ch",
+    "homepage": "https://home.cern/",
+    "email": "cernbox-service-ops@cern.ch",
+    "services": [
+      {
+        "host": "sciencemesh.cernbox.cern.ch",
+        "endpoint": {
+          "type": {
+            "name": "REVAD",
+            "description": "Reva Daemon Service"
+          },
+          "name": "sciencemesh.cernbox.cern.ch - REVAD",
+          "path": "https://sciencemesh.cernbox.cern.ch/iop",
+          "is_monitored": true,
+          "properties": {
+            "ENABLE_HEALTH_CHECKS": "true",
+            "GRPC_PORT": "443",
+            "METRICS_PATH": "/iop/metrics"
+          }
+        }
+      },
+      {
+        "host": "sciencemesh.cernbox.cern.ch",
+        "endpoint": {
+          "type": {
+            "name": "OCM",
+            "description": "OpenCloudMesh Service"
+          },
+          "name": "sciencemesh.cernbox.cern.ch - OCM",
+          "path": "https://sciencemesh.cernbox.cern.ch/iop/ocm"
+        }
+      },
+      {
+        "host": "sciencemesh.cernbox.cern.ch",
+        "endpoint": {
+          "type": {
+            "name": "Webdav",
+            "description": "Web Distributed Authoring and Versioning Service"
+          },
+          "name": "sciencemesh.cernbox.cern.ch - Webdav",
+          "path": "https://sciencemesh.cernbox.cern.ch/iop/remote.php/webdav/"
+        }
+      },
+      {
+        "host": "sciencemesh.cernbox.cern.ch",
+        "endpoint": {
+          "type": {
+            "name": "GATEWAY",
+            "description": "CS3 Gateway Service"
+          },
+          "name": "sciencemesh.cernbox.cern.ch - GATEWAY",
+          "path": "https://sciencemesh.cernbox.cern.ch"
+        }
+      }
+    ],
+    "properties": {
+      "AUTHORIZED": "true"
+    }
+  },
+  {
+    "name": "SURFSARA",
+    "full_name": "SURFSARA",
+    "description": "Surfsara ScienceMesh",
+    "organization": "SURFSARA",
+    "domain": "surfsara.nl",
+    "homepage": "https://www.surf.nl/en",
+    "email": "thirsa.deboer@surf.nl",
+    "services": [
+      {
+        "host": "app.cs3mesh-iop.k8s.surfsara.nl",
+        "endpoint": {
+          "type": {
+            "name": "REVAD",
+            "description": "Reva Daemon Service"
+          },
+          "name": "app.cs3mesh-iop.k8s.surfsara.nl - REVAD",
+          "path": "https://app.cs3mesh-iop.k8s.surfsara.nl/iop",
+          "is_monitored": true,
+          "properties": {
+            "ENABLE_HEALTH_CHECKS": "true",
+            "GRPC_PORT": "443",
+            "METRICS_PATH": "/iop/metrics"
+          }
+        }
+      },
+      {
+        "host": "app.cs3mesh-iop.k8s.surfsara.nl",
+        "endpoint": {
+          "type": {
+            "name": "OCM",
+            "description": "OpenCloudMesh Service"
+          },
+          "name": "app.cs3mesh-iop.k8s.surfsara.nl - OCM",
+          "path": "https://app.cs3mesh-iop.k8s.surfsara.nl/iop/ocm"
+        }
+      },
+      {
+        "host": "app.cs3mesh-iop.k8s.surfsara.nl",
+        "endpoint": {
+          "type": {
+            "name": "Webdav",
+            "description": "Web Distributed Authoring and Versioning Service"
+          },
+          "name": "app.cs3mesh-iop.k8s.surfsara.nl - Webdav",
+          "path": "https://app.cs3mesh-iop.k8s.surfsara.nl/iop/remote.php/webdav/"
+        }
+      },
+      {
+        "host": "app.cs3mesh-iop.k8s.surfsara.nl",
+        "endpoint": {
+          "type": {
+            "name": "GATEWAY",
+            "description": "CS3 Gateway Service"
+          },
+          "name": "app.cs3mesh-iop.k8s.surfsara.nl - GATEWAY",
+          "path": "https://app.cs3mesh-iop.k8s.surfsara.nl"
+        }
+      }
+    ],
+    "properties": {
+      "AUTHORIZED": "true"
+    }
+  },
+  {
+    "name": "CUBBIT",
+    "full_name": "CUBBIT",
+    "description": "Cubbit ScienceMesh",
+    "organization": "CUBBIT",
+    "domain": "cubbit.io",
+    "homepage": "http://www.cubbit.io",
+    "email": "hello@cubbit.io",
+    "services": [
+      {
+        "host": "sciencemesh.cubbit.io",
+        "endpoint": {
+          "type": {
+            "name": "REVAD",
+            "description": "Reva Daemon Service"
+          },
+          "name": "sciencemesh.cubbit.io - REVAD",
+          "path": "https://sciencemesh.cubbit.io",
+          "is_monitored": true,
+          "properties": {
+            "ENABLE_HEALTH_CHECKS": "true",
+            "GRPC_PORT": "443"
+          }
+        }
+      },
+      {
+        "host": "sciencemesh.cubbit.io",
+        "endpoint": {
+          "type": {
+            "name": "OCM",
+            "description": "OpenCloudMesh Service"
+          },
+          "name": "sciencemesh.cubbit.io - OCM",
+          "path": "https://sciencemesh.cubbit.io/ocm"
+        }
+      },
+      {
+        "host": "sciencemesh.cubbit.io",
+        "endpoint": {
+          "type": {
+            "name": "Webdav",
+            "description": "Web Distributed Authoring and Versioning Service"
+          },
+          "name": "sciencemesh.cubbit.io - Webdav",
+          "path": "https://sciencemesh.cubbit.io/remote.php/webdav/"
+        }
+      }
+    ],
+    "properties": {
+      "AUTHORIZED": "true"
+    }
+  },
+  {
+    "name": "AILLERON",
+    "full_name": "Ailleron/Softwaremind",
+    "description": "Ailleron ScienceMesh",
+    "organization": "Ailleron/Softwaremind",
+    "domain": "softwaremind.com",
+    "homepage": "https://softwaremind.com/",
+    "email": "dawid.golosz@softwaremind.com",
+    "services": [
+      {
+        "host": "sciencemesh.softwaremind.com",
+        "endpoint": {
+          "type": {
+            "name": "REVAD",
+            "description": "Reva Daemon Service"
+          },
+          "name": "sciencemesh.softwaremind.com - REVAD",
+          "path": "https://sciencemesh.softwaremind.com/iop/",
+          "is_monitored": true,
+          "properties": {
+            "ENABLE_HEALTH_CHECKS": "true",
+            "GRPC_PORT": "443",
+            "METRICS_PATH": "/iop/metrics"
+          }
+        }
+      },
+      {
+        "host": "sciencemesh.softwaremind.com",
+        "endpoint": {
+          "type": {
+            "name": "OCM",
+            "description": "OpenCloudMesh Service"
+          },
+          "name": "sciencemesh.softwaremind.com - OCM",
+          "path": "https://sciencemesh.softwaremind.com/iop/ocm"
+        }
+      },
+      {
+        "host": "sciencemesh.softwaremind.com",
+        "endpoint": {
+          "type": {
+            "name": "Webdav",
+            "description": "Web Distributed Authoring and Versioning Service"
+          },
+          "name": "sciencemesh.softwaremind.com - Webdav",
+          "path": "https://sciencemesh.softwaremind.com/iop/remote.php/webdav/"
+        }
+      }
+    ],
+    "properties": {
+      "AUTHORIZED": "true"
+    }
+  },
+  {
+    "name": "SWITCH",
+    "full_name": "SWITCH",
+    "description": "SWITCHdrive provides cloud storage to its students, faculty and researchers.",
+    "organization": "SWITCH",
+    "domain": "switch.ch",
+    "homepage": "https://switch.ch",
+    "email": "fergus.kerins@switch.ch",
+    "services": [
+      {
+        "host": "sciencemesh-test.switch.ch",
+        "endpoint": {
+          "type": {
+            "name": "REVAD",
+            "description": "Reva Daemon Service"
+          },
+          "name": "sciencemesh-test.switch.ch - REVAD",
+          "path": "https://sciencemesh-test.switch.ch/iop/",
+          "is_monitored": true,
+          "properties": {
+            "ENABLE_HEALTH_CHECKS": "true",
+            "GRPC_PORT": "443",
+            "METRICS_PATH": "/iop/metrics"
+          }
+        }
+      },
+      {
+        "host": "sciencemesh-test.switch.ch",
+        "endpoint": {
+          "type": {
+            "name": "OCM",
+            "description": "OpenCloudMesh Service"
+          },
+          "name": "sciencemesh-test.switch.ch - OCM",
+          "path": "https://sciencemesh-test.switch.ch/iop/ocm/"
+        }
+      },
+      {
+        "host": "sciencemesh-test.switch.ch",
+        "endpoint": {
+          "type": {
+            "name": "Webdav",
+            "description": "Web Distributed Authoring and Versioning Service"
+          },
+          "name": "sciencemesh-test.switch.ch - Webdav",
+          "path": "https://sciencemesh-test.switch.ch/iop/remote.php/webdav/"
+        }
+      }
+    ],
+    "properties": {
+      "AUTHORIZED": "true"
+    }
+  },
+  {
+    "name": "DTU",
+    "full_name": "Danmarks Tekniske Universitet",
+    "description": "DTU ScienceMesh",
+    "organization": "Danmarks Tekniske Universitet",
+    "domain": "dtu.dk",
+    "homepage": "https://www.dtu.dk",
+    "email": "marpap@dtu.dk",
+    "services": [
+      {
+        "host": "cs3mesh.sciencedata.dk:20001",
+        "endpoint": {
+          "type": {
+            "name": "REVAD",
+            "description": "Reva Daemon Service"
+          },
+          "name": "cs3mesh.sciencedata.dk - REVAD",
+          "path": "http://cs3mesh.sciencedata.dk:20001",
+          "is_monitored": true,
+          "properties": {
+            "ENABLE_HEALTH_CHECKS": "true",
+            "GRPC_PORT": "19000"
+          }
+        }
+      },
+      {
+        "host": "cs3mesh.sciencedata.dk:20001",
+        "endpoint": {
+          "type": {
+            "name": "Webdav",
+            "description": "Web Distributed Authoring and Versioning Service"
+          },
+          "name": "cs3mesh.sciencedata.dk - Webdav",
+          "path": "http://cs3mesh.sciencedata.dk:20001/remote.php/webdav/"
+        }
+      },
+      {
+        "host": "cs3mesh.sciencedata.dk:20001",
+        "endpoint": {
+          "type": {
+            "name": "OCM",
+            "description": "OpenCloudMesh Service"
+          },
+          "name": "cs3mesh.sciencedata.dk - OCM",
+          "path": "http://cs3mesh.sciencedata.dk:20001/ocm"
+        }
+      }
+    ],
+    "properties": {
+      "AUTHORIZED": "true"
+    }
+  }
+]

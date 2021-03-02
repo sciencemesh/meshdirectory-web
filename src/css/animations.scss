@@ -1,0 +1,35 @@
+@mixin animate($val){
+  animation:$val;
+  -moz-animation:$val;
+  -webkit-animation:$val;
+  -o-animation:$val;
+  -ms-animation:$val;
+}
+
+@keyframes marching-ants {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 1000;
+  }
+}
+
+@keyframes staggered-marching-ants {
+  0% {
+    opacity: 0;
+    stroke-dashoffset: 0;
+  }
+  20% { opacity: 1; }
+  45% { opacity: 0; }
+  50% {
+    opacity: 1;
+    stroke-dashoffset: 1000;
+  }
+  70% { opacity: 0; }
+  90% { opacity: 1; }
+  100% {
+    opacity: 0;
+    stroke-dashoffset: 0;
+  }
+}
