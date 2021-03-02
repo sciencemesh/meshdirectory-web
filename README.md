@@ -54,6 +54,10 @@ func main() {
 }
 ```
 
+Finally try to access the Mesh Directory frontend by opening the following url in your browser:
+```
+http://localhost:8080/?token=xyz&providerDomain=cesnet.cz
+```
 
 ## Credits
 
