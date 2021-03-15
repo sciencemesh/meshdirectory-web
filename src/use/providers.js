@@ -32,7 +32,7 @@ export default function useProviders() {
         return new URL(
             `?${encodeURI(searchParams.value.toString())}`,
             new URL('invites/forward',
-                new URL(targetOCMService.value.endpoint.path)
+                new URL(targetOCMService.value.endpoint.path.replace(/\/?$/, '/'))
             )
         )
     })
