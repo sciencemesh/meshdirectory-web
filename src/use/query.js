@@ -6,7 +6,7 @@ export default function useUrl() {
     })
 
     const baseUrl = computed(() => {
-        return `${window.location.pathname === '/'? '' : window.location.pathname}`;
+        return window.location.pathname.replace(/\/?$/, '/')
     })
 
     const validLink = computed(() => {

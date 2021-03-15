@@ -64,7 +64,7 @@ export default function useMap(center, statesRef, mapRef) {
         // Pick 10 random connections proportional to number of locations
         connections.value = connections.value
             .sort(() => 0.5 - Math.random())
-            .slice(0, _locations.length % connections.value.length - 1)
+            .slice(0, Math.ceil((_locations.length % connections.value.length - 1) % 1.2))
     }
 
     function getProviderPoint(provider) {

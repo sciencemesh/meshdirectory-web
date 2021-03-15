@@ -56,7 +56,7 @@ export default {
     const {validLink, baseUrl} = useUrl()
     const {md, lg} = useBreakpoints()
 
-    fetchProviders(`${baseUrl.value}/providers`)
+    fetchProviders(`${baseUrl.value}providers`)
     // TODO: replace locations asset with Mentix locations provider in IOP
     // fetchLocations('~assets/data/providers.loc.json')
     fetchLocations()

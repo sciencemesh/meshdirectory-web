@@ -132,8 +132,8 @@ export default {
       opacity: 0;
       animation-name: staggered-marching-ants;
       animation-duration: 30s;
-      animation-delay: calc(var(--animation-order) * 2200ms);
-      animation-fill-mode: both;
+      animation-delay: calc(var(--animation-order) * 3200ms);
+      animation-fill-mode: forwards;
       animation-timing-function: ease-in-out;
       animation-iteration-count: infinite;
     }
