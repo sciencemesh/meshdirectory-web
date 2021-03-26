@@ -1,6 +1,6 @@
 <template>
   <div class="map-container">
-    <svg ref="map" :viewBox="viewBox"
+    <svg ref="map" v-if="loaded" :viewBox="viewBox"
          class="mesh-map" height="100%"
          width="100%">
       <g ref="states" class="mesh-states"></g>
@@ -20,7 +20,7 @@
                   @mouseup="setTargetProvider(provider)"/>
           <transition v-if="provider.key !== originator.name && provider.key !== target?.name" name="marker-fade">
             <text class="provider__tooltip"
-                  :x="provider.x" :y="provider.y + 32"
+                  :x="provider.x? provider.x : 0" :y="provider.y? provider.y + 32: 0"
                   text-anchor="middle">{{ provider.key }}
             </text>
           </transition>
@@ -39,6 +39,7 @@
         </transition>
       </g>
     </svg>
+    <loading-spinner v-else></loading-spinner>
     <div class="map-help">
       <fa-icon icon="info-circle"></fa-icon>
       <span>Pick your CS3MESH provider from the map</span>
@@ -50,9 +51,11 @@
 import useProviders from '@/use/providers'
 import useMap from '@/use/map'
 import {computed, onMounted, ref} from 'vue'
+import LoadingSpinner from './LoadingSpinner'
 
 export default {
   name: "MeshMap",
+  components: {LoadingSpinner},
   setup() {
     const states = ref(null)
     const map = ref(null)
@@ -92,6 +95,7 @@ export default {
 
 .map-container {
   position: relative;
+  min-height: 350px;
 }
 
 .mesh-map {
@@ -141,20 +145,21 @@ export default {
   .provider-connector {
     fill: none;
     opacity: .8;
-    stroke: lighten($primary-grey, 14%);
-    stroke-width: 4px;
+    stroke: lighten($primary-blue, 35%);
+    stroke-width: 2px;
     stroke-linecap: round;
-    stroke-dasharray: 70 70;
+    stroke-dasharray: 2 8;
     pointer-events: none;
     z-index: -1;
     path {
       opacity: 0;
-      animation-name: staggered-marching-ants;
-      animation-duration: 30s;
-      animation-delay: calc(var(--animation-order) * 3200ms);
-      animation-fill-mode: forwards;
+      animation-name: staggered-opacity;
+      animation-duration: 1.5s;
+      animation-delay: calc(var(--animation-order) * 2200ms);
       animation-timing-function: ease-in-out;
-      animation-iteration-count: infinite;
+      animation-iteration-count: 10 + random(50);
+      animation-direction: alternate;
+      animation-fill-mode: both;
     }
 
     &__active {
@@ -236,6 +241,7 @@ export default {
   font-size: smaller;
   display: block;
   border-top-right-radius: 5px;
+  opacity: .8;
 
   .fa-info-circle {
     margin-right: 1em;

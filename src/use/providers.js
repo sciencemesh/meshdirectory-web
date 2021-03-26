@@ -5,6 +5,7 @@ import useFetch from '@/use/fetch'
 const {searchParams, validLink} = useUrl()
 const {load} = useFetch()
 
+const loaded = ref(false)
 const meshProviders = ref([])
 const meshLocations = ref([])
 const meshTarget = ref(null)
@@ -14,7 +15,7 @@ export default function useProviders() {
     const providers = meshProviders
     const locations = meshLocations
     const target = meshTarget
-    const loaded = ref(false)
+    const allLoaded = loaded
     const providersLoaded = ref(false)
     const locationsLoaded = ref(false)
 
@@ -47,7 +48,7 @@ export default function useProviders() {
         if (process.env.NODE_ENV === 'development') {
             providers.value = require('../../demo/providers.json')
             providersLoaded.value = true
-            loaded.value = true
+            allLoaded.value = true
             return
         }
 
@@ -56,7 +57,7 @@ export default function useProviders() {
             providersLoaded.value = true
 
             if (locationsLoaded.value) {
-                loaded.value = true
+                allLoaded.value = true
             }
         })
     }
@@ -64,7 +65,7 @@ export default function useProviders() {
     function fetchLocations() {
         locations.value = require('../assets/data/providers.loc.json')
         locationsLoaded.value = true
-        loaded.value = true
+        allLoaded.value = true
         // TODO: uncomment when mentix locations provider is in IOP
         // load(locationsUri, (res) => {
         //     locations.value = res
@@ -108,7 +109,7 @@ export default function useProviders() {
         detailsExpanded,
         providersLoaded: computed(() => providersLoaded.value),
         locationsLoaded: computed(() => locationsLoaded.value),
-        loaded: computed(() => loaded.value),
+        loaded: computed(() => allLoaded.value),
         fetchProviders, fetchLocations, getLocation, setTarget, getProvider,
         expandDetails, hideDetails
     }

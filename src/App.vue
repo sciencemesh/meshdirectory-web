@@ -5,7 +5,7 @@
       <navbar-links></navbar-links>
     </div>
     <section v-if="validLink" class="hero">
-      <keep-alive v-if="loaded && md">
+      <keep-alive v-if="md">
         <mesh-map></mesh-map>
       </keep-alive>
       <div class="meshselect content">
@@ -52,7 +52,7 @@ export default {
     MeshMap
   },
   setup() {
-    const {fetchProviders, fetchLocations, loaded, providers, originator} = useProviders()
+    const {fetchProviders, fetchLocations, providers, originator} = useProviders()
     const {validLink, baseUrl} = useUrl()
     const {md, lg} = useBreakpoints()
 
@@ -61,7 +61,7 @@ export default {
     // fetchLocations('~assets/data/providers.loc.json')
     fetchLocations()
 
-    return {originator, loaded, validLink, providers, md, lg}
+    return {originator, validLink, providers, md, lg}
   },
 }
 </script>
