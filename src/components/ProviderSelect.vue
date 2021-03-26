@@ -1,6 +1,10 @@
 <template>
   <div class="container">
+<!--    <input id="provider-filter" v-model="providerFilter" type="search">-->
     <div id="scroll-container">
+      <fa-icon class="scroll-icon scroll-icon__top"
+               v-show="scrollIndex > internalProviders.length / 3"
+               icon="angle-up"></fa-icon>
       <div ref="wrapScroll" :class="[detailsExpanded? 'provider-details__open': '']"
            :style="{maxHeight: `${wrapHeight}px`, minHeight: `${wrapHeight}px`}"
            class="wrap-container">
@@ -9,7 +13,7 @@
               v-show="!detailsExpanded"
               :key="provider.name"
               :ref="el => { if (el) providerOptions[i] = el }" :class="[provider.name === target?.name ? 'active': '']"
-              @click="provider.name === target?.name? detailsExpanded = true: null">
+              @click="showDetails(provider)">
             <span class="item">{{ provider.full_name }}</span>
           </li>
         </ul>
@@ -33,6 +37,9 @@
           <a :href="targetLink" class="accept-btn">Accept</a>
         </div>
       </div>
+      <fa-icon class="scroll-icon scroll-icon__bottom"
+               v-show="scrollIndex < (internalProviders.length / 3) * 2"
+               icon="angle-down"></fa-icon>
     </div>
     <svg>
       <defs>
@@ -49,7 +56,7 @@
   </div>
 </template>
 <script>
-import {computed, onBeforeUpdate, ref, watch} from 'vue'
+import {computed, onBeforeUpdate, onMounted, ref, watch, nextTick} from 'vue'
 import useProviders from '@/use/providers'
 import {useOnScroll} from 'vue-composable'
 import useBreakpoints from "@/use/breakpoints";
@@ -74,13 +81,16 @@ export default {
       hideDetails
     } = useProviders()
     const {md} = useBreakpoints()
+    const loading = ref(true)
     const wrapScroll = ref(null)
     const {scrollTop, scrollTopTo} = useOnScroll(wrapScroll)
     const providerOptions = ref([])
+    const providerFilter = ref('')
 
     const internalProviders = computed(() => {
       return providers.value.filter(p => {
-        return p.name !== originator.value.name
+        return p.name !== originator.value.name &&
+            (p.name.toLowerCase().includes(providerFilter.value.toLowerCase()) || providerFilter.value === '')
       })
     })
 
@@ -92,22 +102,34 @@ export default {
       return 0
     })
 
-    const targetIndex = computed(() => {
-      if (target.value) {
-        return internalProviders.value.findIndex(p => p.name === target.value.name)
-      }
-      return -1
-    })
-
     onBeforeUpdate(() => {
       providerOptions.value = []
     })
 
-    function onTargetChanged() {
-      const targetEl = providerOptions.value[targetIndex.value]
+    onMounted(() => {
+      if (detailsExpanded.value) {
+        return
+      }
+      scrollToIndex(Math.floor(internalProviders.value.length / 2))
+    })
+
+    function providerIndex(provider) {
+      return internalProviders.value.findIndex(p => p.name === provider.name)
+    }
+
+    function scrollToIndex(index) {
+      const targetEl = providerOptions.value[index]
       if (targetEl) {
         scrollTopTo(targetEl.clientTop + targetEl.offsetTop)
       }
+    }
+
+    function scrollToProvider(provider) {
+      scrollToIndex(providerIndex(provider))
+    }
+
+    function onTargetChanged() {
+      scrollToProvider(target.value)
     }
 
     watch([target], () => {
@@ -117,16 +139,28 @@ export default {
     watch([scrollTop], () => {
       if (detailsExpanded.value) {
         return
+      } else if (loading.value) {
+        loading.value = false
+        return
       }
       const provider = internalProviders.value[scrollIndex.value]
-      if (provider.name !== target.value?.name) {
+      if (provider && provider.name !== target.value?.name) {
         setTarget(provider)
       }
     })
 
+    function showDetails(provider) {
+      setTarget(provider)
+      if (provider.name === target?.value.name) {
+        detailsExpanded.value = true
+      }
+    }
+
     function closeDetails() {
       hideDetails()
-      onTargetChanged()
+      nextTick(() => {
+        onTargetChanged()
+      })
     }
 
     return {
@@ -134,10 +168,13 @@ export default {
       target,
       scrollTop,
       wrapScroll,
+      scrollIndex,
       providerOptions,
+      providerFilter,
       detailsExpanded,
       expandDetails,
       hideDetails,
+      showDetails,
       closeDetails,
       targetLink,
       md
@@ -239,6 +276,19 @@ svg {
   position: relative;
   min-height: 200px;
   z-index: 0;
+
+  .scroll-icon {
+    display: inline-block;
+    position: absolute;
+    left: 49%;
+    transform: scaleX(1.3);
+    &__top {
+      top: 25px;
+    }
+    &__bottom {
+      bottom: 25px;
+    }
+  }
 }
 
 .wrap-container {
@@ -292,6 +342,7 @@ svg {
   transition: transform .3s;
   overflow: hidden;
   font-size: .9em;
+  cursor: pointer;
 
   &.provider-details__open {
     cursor: none;
@@ -317,7 +368,6 @@ svg {
 
 .wrap-container ul li.active .item {
   transform: scale(1.9);
-  cursor: pointer;
 }
 
 .active {
