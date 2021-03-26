@@ -15,8 +15,15 @@
            :class="{ 'provider__originator' : provider.key === originator.name }"
            class="provider">
           <circle :cx="provider.x" :cy="provider.y" class="provider__marker" r="4"/>
-          <circle :cx="provider.x" :cy="provider.y" class="provider__button" r="16"
+          <circle v-if="provider.key !== originator.name"
+                  :cx="provider.x" :cy="provider.y" class="provider__button" r="16"
                   @mouseup="setTargetProvider(provider)"/>
+          <transition v-if="provider.key !== originator.name && provider.key !== target?.name" name="marker-fade">
+            <text class="provider__tooltip"
+                  :x="provider.x" :y="provider.y + 32"
+                  text-anchor="middle">{{ provider.key }}
+            </text>
+          </transition>
         </g>
       </g>
       <g v-for="(marker, index) in markers"
@@ -32,6 +39,10 @@
         </transition>
       </g>
     </svg>
+    <div class="map-help">
+      <fa-icon icon="info-circle"></fa-icon>
+      <span>Pick your CS3MESH provider from the map</span>
+    </div>
   </div>
 </template>
 
@@ -46,7 +57,7 @@ export default {
     const states = ref(null)
     const map = ref(null)
 
-    const {providers, expandDetails, loaded, getProvider, setTarget, originator} = useProviders()
+    const {providers, expandDetails, loaded, getProvider, setTarget, originator, target} = useProviders()
     const {render, renderConnection, providerPoints, providerConnections, markers, markerSet, isOrigin} =
         useMap([14, 54], states, map)
 
@@ -69,7 +80,7 @@ export default {
     return {
       providers, loaded, markers, states, map, renderConnection, originator,
       providerPoints, providerConnections, isOrigin, setTargetProvider,
-      markerSet, viewBox
+      markerSet, viewBox, target
     }
   }
 }
@@ -78,6 +89,10 @@ export default {
 <style lang="scss">
 @import 'src/css/_variables.scss';
 @import 'src/css/animations';
+
+.map-container {
+  position: relative;
+}
 
 .mesh-map {
   display: block;
@@ -111,6 +126,10 @@ export default {
   .provider__button {
     fill: transparent;
     cursor: pointer;
+  }
+
+  .provider__tooltip {
+    fill: transparent;
   }
 
   .provider__originator {
@@ -206,6 +225,20 @@ export default {
         transform: scale(0.8);
       }
     }
+  }
+}
+.map-help {
+  padding: 15px;
+  background-color: $primary-grey;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  font-size: smaller;
+  display: block;
+  border-top-right-radius: 5px;
+
+  .fa-info-circle {
+    margin-right: 1em;
   }
 }
 </style>
