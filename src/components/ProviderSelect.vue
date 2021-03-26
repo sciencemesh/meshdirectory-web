@@ -1,7 +1,7 @@
 <template>
   <div class="container">
 <!--    <input id="provider-filter" v-model="providerFilter" type="search">-->
-    <div id="scroll-container">
+    <div id="scroll-container" v-if="loaded">
       <fa-icon class="scroll-icon scroll-icon__top"
                v-show="scrollIndex > internalProviders.length / 3"
                icon="angle-up"></fa-icon>
@@ -41,6 +41,7 @@
                v-show="scrollIndex < (internalProviders.length / 3) * 2"
                icon="angle-down"></fa-icon>
     </div>
+    <loading-spinner v-else></loading-spinner>
     <svg>
       <defs>
         <linearGradient id="gradient" x1="0" x2="0" y1="0%" y2="50%">
@@ -59,10 +60,13 @@
 import {computed, onBeforeUpdate, onMounted, ref, watch, nextTick} from 'vue'
 import useProviders from '@/use/providers'
 import {useOnScroll} from 'vue-composable'
-import useBreakpoints from "@/use/breakpoints";
-
+import useBreakpoints from '@/use/breakpoints'
+import LoadingSpinner from './LoadingSpinner'
 export default {
   name: "ProviderSelect",
+  components: {
+    LoadingSpinner
+  },
   props: {
     wrapHeight: {
       type: Number,
@@ -78,7 +82,8 @@ export default {
       originator,
       detailsExpanded,
       expandDetails,
-      hideDetails
+      hideDetails,
+      loaded
     } = useProviders()
     const {md} = useBreakpoints()
     const loading = ref(true)
@@ -95,7 +100,7 @@ export default {
     })
 
     const scrollIndex = computed(() => {
-      if (scrollTop.value > 0) {
+      if (scrollTop.value > 0 && wrapScroll.value) {
         const scrollPercentage = (scrollTop.value / wrapScroll.value.clientHeight)
         return Math.round(scrollPercentage * Math.abs(internalProviders.value.length))
       }
@@ -110,7 +115,9 @@ export default {
       if (detailsExpanded.value) {
         return
       }
-      scrollToIndex(Math.floor(internalProviders.value.length / 2))
+      nextTick(() => {
+        scrollToIndex(Math.floor(internalProviders.value.length / 2))
+      })
     })
 
     function providerIndex(provider) {
@@ -134,6 +141,12 @@ export default {
 
     watch([target], () => {
       onTargetChanged()
+    })
+
+    watch([internalProviders], () => {
+      nextTick(() => {
+        scrollToIndex(Math.floor(internalProviders.value.length / 2))
+      })
     })
 
     watch([scrollTop], () => {
@@ -177,7 +190,8 @@ export default {
       showDetails,
       closeDetails,
       targetLink,
-      md
+      md,
+      loaded
     }
   }
 }

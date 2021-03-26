@@ -33,7 +33,6 @@ export default function useMap(center, statesRef, mapRef) {
     }
 
     function renderProviders() {
-
         let i = _locations.length, d, proj
 
         while (i--) {
@@ -64,7 +63,7 @@ export default function useMap(center, statesRef, mapRef) {
         // Pick 10 random connections proportional to number of locations
         connections.value = connections.value
             .sort(() => 0.5 - Math.random())
-            .slice(0, Math.ceil((_locations.length % connections.value.length - 1) % 1.2))
+            .slice(0, Math.ceil((_locations.length % connections.value.length - 1)))
     }
 
     function getProviderPoint(provider) {
