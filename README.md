@@ -1,67 +1,34 @@
-# meshdirectory-web
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-![image](demo/preview.png)
+## Getting Started
 
-A web frontend SPA for the Science Mesh Directory service written in Vue 3.
+First, run the development server:
 
-## Development
-
-### Project setup
-```
-yarn install
-```
-
-### Compiles and hot-reloads for development
-```
-yarn serve
+```bash
+npm run dev
+# or
+yarn dev
 ```
 
-### Compiles and minifies for production
-```
-yarn build
-```
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-### Lints and fixes files
-```
-yarn lint
-```
+You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-## Usage
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
 
-To use this frontend in your GOlang projects, run the following:
-```
-go get github.com/sciencemesh/meshdirectory-web
-```
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-And serve the SPA distribution in your HTTP handler, e.g.:
-```go
-package mypackage
-import (
-	"net/http"
-	"log"
-	"github.com/sciencemesh/meshdirectory-web"
-)
+## Learn More
 
-func Handler() http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-	    return ServeMeshDirectorySPA(w, r)
-	}
-}
+To learn more about Next.js, take a look at the following resources:
 
-func main() {
-    http.Handle("/", Handler())
-    log.Fatal(http.ListenAndServe(":8080", nil))
-}
-```
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-Finally try to access the Mesh Directory frontend by opening the following url in your browser:
-```
-http://localhost:8080/?token=xyz&providerDomain=cesnet.cz
-```
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Credits
+## Deploy on Vercel
 
-- Custom GeoJSON map data was generated using the [GeoJSON Maps](https://geojson-maps.ash.ms/) service.
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
