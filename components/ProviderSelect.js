@@ -4,11 +4,13 @@ import { HiChevronDown, HiOutlineStar, HiStar } from 'react-icons/hi'
 import { BiCurrentLocation } from 'react-icons/bi'
 import useLocalStorageState from 'use-local-storage-state'
 import { Combobox, Transition } from '@headlessui/react'
+import ErrorBanner from './ErrorBanner'
+import { matches } from '../src/util'
 
 function NoResults ({ }) {
-    return <div className="relative cursor-default select-none py-2 px-4 text-gray-700 text-red-600">
-        {`No ScienceMesh provider found by this name 🤷‍♂️.`}
-    </div>
+    return <ErrorBanner error={{
+        message: 'No ScienceMesh provider found by this name 🤷‍♂️.'
+    }} />
 }
 
 export default function ProviderSelect ({ providers, selected, onChange }) {
@@ -25,15 +27,7 @@ export default function ProviderSelect ({ providers, selected, onChange }) {
     const filteredProviders =
         query === ''
             ? providers
-            : providers.filter((provider) => {
-                return provider.name
-                    .toLowerCase()
-                    .includes(query.toLowerCase())
-                    ||
-                    provider.fullName
-                        .toLowerCase()
-                        .includes(query.toLowerCase())
-            })
+            : providers.filter((provider) => matches(provider, query))
 
     const sortedProviders = filteredProviders.sort((a, b) => {
         if (isPreferred(a) && !isPreferred(b)) return -1;
@@ -65,17 +59,27 @@ export default function ProviderSelect ({ providers, selected, onChange }) {
                         <div className="relative w-full cursor-default overflow-hidden bg-white text-left border-dotted border-b-2 border-b-blue focus:outline-none focus:ring-2 focus:ring-orange sm:text-sm">
                             <Combobox.Input
                                 ref={providersInput}
+                                aria-label="Enter your ScienceMesh site"
                                 className='w-full border-none py-2 pr-10 text-4xl leading-5 focus:ring-0 truncate text-blue-dark focus:outline-none '
                                 onChange={(event) => setQuery(event.target.value)}
                                 displayValue={(provider) => provider?.fullName}
                             />
-                            <Combobox.Button ref={providersComboToggle} className="absolute inset-y-0 right-1 flex items-center">
+                            <Combobox.Button
+                                ref={providersComboToggle}
+                                title="Expand"
+                                arial-label="Expand"
+                                className="absolute inset-y-0 right-1 flex items-center"
+                            >
                                 <HiChevronDown
                                     className="h-5 w-5 text-blue-dark z-10 bg-white rounded-full hover:text-gray-dark"
                                     aria-hidden="true"
                                 />
                             </Combobox.Button>
-                            <button className='absolute inset-y-0 my-4 right-10 text-blue-dark hover:text-gray-dark focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-0'>
+                            <button
+                                title="Find nearest"
+                                aria-label='Find nearest'
+                                className='absolute inset-y-0 my-4 right-10 text-blue-dark hover:text-gray-dark focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-0'
+                            >
                                 <BiCurrentLocation
                                     aria-hidden="true"
                                     className='h-5 w-5 z-10 p-y-10 bg-white rounded-full'
@@ -101,7 +105,7 @@ export default function ProviderSelect ({ providers, selected, onChange }) {
                                             key={provider.name}
                                             value={provider}
                                             className={({ active }) =>
-                                                `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-blue text-white' : 'text-gray-900'}`}>
+                                                `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-blue-dark text-white' : 'text-gray-900'}`}>
                                             {({ selected }) => (
                                                 <>
                                                     <span className={`block truncate ${selected ? 'font-semibold text-lg' : 'font-normal'}`}>

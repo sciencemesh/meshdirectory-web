@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { siteDescription, siteTitle } from "../src/constants";
 import Navbar from "./Navbar";
-import PageTitleMeta from "./PageTitle";
+import PageTitleMeta from "./PageTitleMeta";
 
 export default function Layout ({ children }) {
   return (
@@ -9,6 +9,7 @@ export default function Layout ({ children }) {
       <PageTitleMeta />
       <Head>
         <meta name="description" content={siteDescription} />
+        <meta name="robots" content="noindex,nofollow" />
         <link
           rel="icon"
           type="image/png"

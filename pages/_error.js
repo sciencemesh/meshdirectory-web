@@ -1,4 +1,4 @@
-import PageTitleMeta from "../components/PageTitle";
+import PageTitleMeta from "../components/PageTitleMeta";
 import Link from "next/link";
 
 const statusCodes = {
