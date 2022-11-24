@@ -10,14 +10,13 @@ const statusCodes = {
 
 function Error ({ error }) {
   const { status, message, details, stack } = error;
-  console.error(error);
   return (
     <>
       <PageTitleMeta subtitle={`Error ${status}`} />
-      <div className="min-h-full bg-white px-4 py-16 sm:px-6 sm:py-24 md:grid md:place-items-center lg:px-8">
+      <div className="min-h-full px-4 py-16 bg-white sm:px-6 sm:py-24 md:grid md:place-items-center lg:px-8">
         <div className="mx-auto max-w-max">
           <main className="sm:flex">
-            <p className="bg-gradient-to-br from-red-500 to-gray-dark bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl">
+            <p className="text-4xl font-bold tracking-tight text-transparent bg-gradient-to-br from-red-500 to-gray-dark bg-clip-text sm:text-5xl">
               {status}
             </p>
             <div className="sm:ml-6">
@@ -30,14 +29,14 @@ function Error ({ error }) {
                 )}
               </div>
 
-              <div className="mt-10 flex space-x-3 sm:border-l sm:border-transparent sm:pl-6">
+              <div className="flex mt-10 space-x-3 sm:border-l sm:border-transparent sm:pl-6">
                 <Link href="/">
-                  <a className="inline-flex items-center rounded-md border-transparent bg-gradient-to-br from-blue to-gray-dark px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-gradient-to-br hover:from-red-600 hover:to-yellow-800 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2">
+                  <a className="inline-flex items-center px-4 py-2 text-sm font-medium text-white border-transparent rounded-md bg-gradient-to-br from-blue to-gray-dark shadow-sm hover:bg-gradient-to-br hover:from-red-600 hover:to-yellow-800 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2">
                     Go back home
                   </a>
                 </Link>
                 <Link href="/support">
-                  <a className="inline-flex items-center rounded-md border  border-gray  px-4 text-sm text-white text-current hover:bg-gray hover:text-white">
+                  <a className="inline-flex items-center px-4 text-sm text-white border rounded-md border-gray text-current hover:bg-gray hover:text-white">
                     Contact support
                   </a>
                 </Link>

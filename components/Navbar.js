@@ -1,5 +1,5 @@
 import * as React from "react";
-import { siteLogo } from "../src/constants";
+import siteLogo from '../public/logo-sciencemesh.svg'
 import Image from "next/image";
 import NavLink from "./NavLink";
 import MobileMenu from './MobileMenu'

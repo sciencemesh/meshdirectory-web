@@ -10,7 +10,7 @@ function promisifyAll (client) {
   const { promisify } = require("util");
 
   const to = {};
-  for (var k in client) {
+  for (const k in client) {
     if (typeof client[k] != "function") continue;
     to[k] = promisify(client[k].bind(client));
   }
@@ -19,8 +19,8 @@ function promisifyAll (client) {
 
 function getInviteAPI (provider, action) {
   const { servicesList } = provider
-  const sciencemeshService = servicesList.find(s => s.endpoint?.name === 'SCIENCEMESH_WEBAPP')
-  const ocmApiFallbackService = servicesList.find(s => s.endpoint?.name === 'OCM')
+  const sciencemeshService = servicesList.find(s => s.endpoint?.type?.name.toLowerCase() === 'efss_webapp')
+  const ocmApiFallbackService = servicesList.find(s => s.endpoint?.type?.name.toLowerCase() === 'ocm')
 
   if (!sciencemeshService && !ocmApiFallbackService) {
     return
@@ -34,6 +34,10 @@ function getInviteAPI (provider, action) {
       ? new URL('accept', baseURL)
       : new URL('invites/forward', baseURL)
   }
+}
+
+function getLocation (provider, locations) {
+  return locations.find(loc => loc.key.toLowerCase() === provider.name.toLowerCase())
 }
 
 function areEqual (provider1, provider2) {
@@ -52,4 +56,4 @@ function matches (provider, query) {
       .includes(query.toLowerCase())
 }
 
-export { classNames, promisifyAll, isPending, isRejected, isResolved, getInviteAPI, areEqual, matches };
+export { classNames, promisifyAll, isPending, isRejected, isResolved, getInviteAPI, getLocation, areEqual, matches };

@@ -1,18 +1,19 @@
 import * as React from 'react'
 import Error from './_error'
 import { useRouter } from 'next/router'
-import { promisifyAll, isRejected, getInviteAPI, areEqual } from "../src/util"
+import { promisifyAll, isRejected, getInviteAPI, areEqual, getLocation } from "../src/util"
 import ProviderSelect from '../components/ProviderSelect'
 import PageTitleMeta from '../components/PageTitleMeta'
 import ErrorBanner from '../components/ErrorBanner'
+import MeshGlobe from '../components/MeshGlobe'
 
 function OriginatingProvider ({ provider }) {
-  return <span className='border-dotted border-b-2 decoration-dotted text-4xl text-blue-dark font-medium py-2'>
-    {provider?.fullName || <div className="animate-pulse w-48 h-8 rounded-sm bg-slate-300" />}
+  return <span className='py-2 text-4xl font-medium border-b-2 border-dotted decoration-dotted text-blue-dark'>
+    {provider?.fullName || <div className="w-48 h-8 rounded-sm animate-pulse bg-slate-300" />}
   </span >
 }
 
-export default function Index ({ status, providers, error }) {
+export default function Index ({ status, providers, providerLocations, error }) {
   const { query, isReady, push: redirect } = useRouter()
   const [selectedProvider, setProvider] = React.useState(null)
   const [clientError, setClientError] = React.useState(null)
@@ -22,7 +23,8 @@ export default function Index ({ status, providers, error }) {
   }
 
   const { providerDomain, token } = query
-  const originatingProvider = providers.find(p => p.domai.toLowerCase() === providerDomain?.toLowerCase())
+  const originatingProvider = providers.find(p => p.domain.toLowerCase() === providerDomain?.toLowerCase())
+
   const canAccept = selectedProvider !== null
 
   const availableProviders = providers.filter(provider => !areEqual(provider, originatingProvider))
@@ -60,6 +62,7 @@ export default function Index ({ status, providers, error }) {
       setClientError({
         message: 'This site doesn\'t host required services. Please choose another one.'
       })
+      return
     }
 
     redirect({
@@ -76,9 +79,9 @@ export default function Index ({ status, providers, error }) {
 
   return <>
     <PageTitleMeta subtitle="Accept invite" />
-    <div className='bg-white grid grid-flow-row md:grid-flow-col h-full gap-10 flex-col py-10'>
+    <div className='flex-col h-full grid grid-flow-row md:grid-flow-col gap-10'>
       {/* Hero text */}
-      <section className='pl-8 md:pl-12 flex flex-col justify-center items-start text-left gap-6'>
+      <section className='flex flex-col items-start justify-center pl-8 text-left md:pl-12 gap-6'>
         <span className='inline-block text-xl font-light'>Accept an invitation to collaborate from</span>
         <OriginatingProvider provider={originatingProvider} />
         <span className='inline-block text-xl font-light'>using your</span>
@@ -95,14 +98,21 @@ export default function Index ({ status, providers, error }) {
           onClick={acceptInvite}
           title="Accept invite"
           aria-label='Accept invite'
-          className="w-72 rounded-md shadow-lg text-white font-medium px-4 py-2 text-2xl  mt-10 bg-gradient-to-br from-blue to-gray-dark hover:from-orange-600 hover:to-blue-dark focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
+          className="px-4 py-2 mt-10 text-2xl font-medium text-white shadow-lg w-72 rounded-md bg-gradient-to-br from-blue to-gray-dark hover:from-orange-600 hover:to-blue-dark focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
         >
           Accept
         </button>
       </section>
       {/* Mesh globe */}
-      <div className='flex justify-center items-center border border-bg-blue pr-8 md:pr-12'>
-        <h2 className='text-2xl'>Map</h2>
+      <div className='relative flex items-center justify-end'>
+        <div className="absolute right-0 ">
+          <MeshGlobe
+            providers={availableProviders}
+            providerLocations={providerLocations}
+            originator={originatingProvider}
+            selected={selectedProvider}
+          />
+        </div>
       </div>
     </div>
   </>
@@ -120,6 +130,7 @@ export async function getStaticProps () {
 
   let req = new ListAllProvidersRequest();
   let providers = []
+  let providerLocations = []
   let status = 'pending'
   let error = null
 
@@ -133,9 +144,14 @@ export async function getStaticProps () {
     status = 'rejected'
   }
 
+  if (!isRejected(status)) {
+    providerLocations = await (await fetch('https://iop.sciencemesh.uni-muenster.de/iop/mentix/loc')).json()
+  }
+
   return {
     props: {
       providers,
+      providerLocations,
       error: isRejected(status) ? { status: 500, code: error.code, message: error.message, details: error.details, stack: error.stack } : null,
       status
     },

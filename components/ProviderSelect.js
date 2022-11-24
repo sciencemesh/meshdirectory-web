@@ -16,6 +16,7 @@ function NoResults ({ }) {
 export default function ProviderSelect ({ providers, selected, onChange }) {
     const [preferredProviders, setPreferred] = useLocalStorageState(
         'cs3.meshdir.preferredProviders', {
+        ssr: true,
         defaultValue: []
     })
     const [query, setQuery] = React.useState('')
@@ -56,11 +57,11 @@ export default function ProviderSelect ({ providers, selected, onChange }) {
             {({ open }) => (
                 <>
                     <div className="flex flex-col">
-                        <div className="relative w-full cursor-default overflow-hidden bg-white text-left border-dotted border-b-2 border-b-blue focus:outline-none focus:ring-2 focus:ring-orange sm:text-sm">
+                        <div className="relative w-full overflow-hidden text-left bg-white border-b-2 border-dotted cursor-default border-b-blue focus:outline-none focus:ring-2 focus:ring-orange sm:text-sm">
                             <Combobox.Input
                                 ref={providersInput}
                                 aria-label="Enter your ScienceMesh site"
-                                className='w-full border-none py-2 pr-10 text-4xl leading-5 focus:ring-0 truncate text-blue-dark focus:outline-none '
+                                className='w-full py-2 pr-10 text-4xl truncate border-none leading-5 focus:ring-0 text-blue-dark focus:outline-none'
                                 onChange={(event) => setQuery(event.target.value)}
                                 displayValue={(provider) => provider?.fullName}
                             />
@@ -68,10 +69,10 @@ export default function ProviderSelect ({ providers, selected, onChange }) {
                                 ref={providersComboToggle}
                                 title="Expand"
                                 arial-label="Expand"
-                                className="absolute inset-y-0 right-1 flex items-center"
+                                className="absolute inset-y-0 flex items-center right-1"
                             >
                                 <HiChevronDown
-                                    className="h-5 w-5 text-blue-dark z-10 bg-white rounded-full hover:text-gray-dark"
+                                    className="z-10 w-5 h-5 bg-white rounded-full text-blue-dark hover:text-gray-dark"
                                     aria-hidden="true"
                                 />
                             </Combobox.Button>
@@ -82,7 +83,7 @@ export default function ProviderSelect ({ providers, selected, onChange }) {
                             >
                                 <BiCurrentLocation
                                     aria-hidden="true"
-                                    className='h-5 w-5 z-10 p-y-10 bg-white rounded-full'
+                                    className='z-10 w-5 h-5 bg-white rounded-full p-y-10'
                                 />
                             </button>
                         </div>
@@ -96,7 +97,7 @@ export default function ProviderSelect ({ providers, selected, onChange }) {
                         >
                             <Combobox.Options
                                 static
-                                className="mt-2 max-h-60 w-full border-t-0 shadow-sm overflow-auto rounded-sm border-10 bg-white py-1 text-base ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                                className="w-full py-1 mt-2 overflow-auto text-base bg-white border-t-0 rounded-sm max-h-60 shadow-sm border-10 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                                 {sortedProviders.length === 0 && query !== '' ? (
                                     <NoResults query={query} />
                                 ) : (
@@ -119,8 +120,8 @@ export default function ProviderSelect ({ providers, selected, onChange }) {
                                                     >
                                                         {
                                                             isPreferred(provider)
-                                                                ? (<HiStar className="h-5 w-5" aria-hidden="true" />)
-                                                                : (<HiOutlineStar className="h-5 w-5" aria-hidden="true" />)
+                                                                ? (<HiStar className="w-5 h-5" aria-hidden="true" />)
+                                                                : (<HiOutlineStar className="w-5 h-5" aria-hidden="true" />)
                                                         }
                                                     </button>
                                                 </>

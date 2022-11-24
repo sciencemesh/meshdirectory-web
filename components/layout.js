@@ -37,7 +37,7 @@ export default function Layout ({ children }) {
         <link rel="icon" type="image/ico" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <main className="pt-40 w-full mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 py-50 h-screen">{children}</main>
+      <main className="w-full h-screen px-2 pt-40 mx-auto max-w-7xl sm:px-6 lg:px-8 py-50">{children}</main>
     </>
   );
 }
