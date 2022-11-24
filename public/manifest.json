@@ -1,0 +1,17 @@
+{
+  "name": "R3F Next Starter",
+  "short_name": "R3F Next Starter",
+  "icons": [
+    {
+      "src": "/icons/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "theme_color": "#1F91CC",
+  "background_color": "#ffffff"
+}

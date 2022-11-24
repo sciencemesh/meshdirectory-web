@@ -1,0 +1,37 @@
+[grpc.services.gateway]
+[grpc.services.storageregistry]
+[grpc.services.storageprovider]
+[grpc.services.authprovider]
+[grpc.services.authregistry]
+[grpc.services.userprovider]
+[grpc.services.groupprovider]
+[grpc.services.usershareprovider]
+[grpc.services.publicshareprovider]
+[grpc.services.ocmcore]
+[grpc.services.ocmshareprovider]
+[grpc.services.ocminvitemanager]
+[grpc.services.ocmproviderauthorizer]
+driver = "mentix"
+
+[grpc.services.ocmproviderauthorizer.drivers.mentix]
+url = "https://iop.sciencemesh.uni-muenster.de/iop/mentix/cs3"
+verify_request_hostname = true
+insecure = false
+timeout = 10
+refresh = 900
+
+[http.services.datagateway]
+[http.services.dataprovider]
+[http.services.prometheus]
+[http.services.ocmd]
+[http.services.ocdav]
+[http.services.ocs]
+[http.middlewares.providerauthorizer]
+driver = "mentix"
+
+[http.middlewares.providerauthorizer.drivers.mentix]
+url = "https://iop.sciencemesh.uni-muenster.de/iop/mentix/cs3"
+verify_request_hostname = true
+insecure = false
+timeout = 10
+refresh = 900
