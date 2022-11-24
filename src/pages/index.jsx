@@ -18,7 +18,8 @@ export default function Page({ providers, error, status }) {
   const { providerDomain, token } = query
 
   if (isRejected(status)) {
-    return <Error error={error} />
+    const { status, message } = error
+    return <Error status={status} details={message} />
   }
 
   const fromProvider = providers.find((p) => p.domain.toLowerCase() === providerDomain?.toLowerCase())

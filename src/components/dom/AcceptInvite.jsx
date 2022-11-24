@@ -37,7 +37,7 @@ export default function AcceptInvite({ from, withProvider, setWithProvider, prov
   }
 
   return (
-    <section className='flex flex-col items-start justify-center pl-2 my-24 text-left grow text-md text-secondary gap-6'>
+    <section className='flex flex-col items-start justify-center pl-6 my-24 text-left grow text-md text-secondary gap-6'>
       <span className='inline-block font-light'>Accept an invitation to collaborate from</span>
       <span className='py-2 text-4xl font-medium border-b-2 border-dotted border-b-primary text-primary-dark'>
         {from?.fullName || <div className='w-48 h-8 rounded-sm animate-pulse bg-slate-300' />}

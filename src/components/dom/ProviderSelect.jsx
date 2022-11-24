@@ -14,7 +14,7 @@ const NoResults = ({}) => (
   />
 )
 
-const ProviderOption = ({ provider }) => (
+const ProviderOption = ({ provider, preferred, togglePreferred }) => (
   <Combobox.Option
     value={provider}
     className={({ active }) =>
@@ -30,9 +30,9 @@ const ProviderOption = ({ provider }) => (
           tabIndex='-1'
           onClick={(e) => togglePreferred(e, provider)}
           className={`absolute inset-y-0 left-0 flex items-center pl-3 z-20 ${
-            isPreferred(provider) ? 'text-yellow-500' : 'text-white'
+            preferred ? 'text-yellow-500' : 'text-white'
           }`}>
-          {isPreferred(provider) ? (
+          {preferred ? (
             <HiStar className='w-5 h-5' aria-hidden='true' />
           ) : (
             <HiOutlineStar className='w-5 h-5' aria-hidden='true' />
@@ -149,7 +149,14 @@ export default function ProviderSelect({ providers, selected, onChange }) {
                 {sortedProviders.length === 0 && query !== '' ? (
                   <NoResults query={query} />
                 ) : (
-                  filteredProviders.map((provider) => <ProviderOption key={provider.name} provider={provider} />)
+                  filteredProviders.map((provider) => (
+                    <ProviderOption
+                      key={provider.name}
+                      provider={provider}
+                      preferred={isPreferred(provider)}
+                      togglePreferred={togglePreferred}
+                    />
+                  ))
                 )}
               </Combobox.Options>
             </Transition>

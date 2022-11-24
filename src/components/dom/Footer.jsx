@@ -1,6 +1,6 @@
 import logoDarkBg from '#/img/logo-dark-bg.svg'
 import NavLink from '@/components/dom/NavLink'
-import Image from 'next/image'
+import Image from "next/legacy/image";
 
 const RESOURCES_LINKS = [
   { name: 'Documentation', href: 'https://sciencemesh.io' },

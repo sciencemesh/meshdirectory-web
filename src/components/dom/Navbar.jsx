@@ -1,6 +1,6 @@
 import * as React from 'react'
 import siteLogo from '#/img/logo.svg'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import NavLink from '@/components/dom/NavLink'
 import MobileMenu from '@/components/dom/MobileMenu'
 
@@ -27,7 +27,7 @@ export default function Navbar() {
               layout='fixed'
               height={72}
               width={200}
-              priority={true}
+              priority={false}
               alt='ScienceMesh Logo'
             />
             <span className='hidden text-2xl font-medium uppercase md:inline-block'>Directory</span>
