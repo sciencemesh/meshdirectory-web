@@ -10,7 +10,7 @@ const Layout = React.forwardRef(({ children, ...props }, ref) => {
       <Navbar />
       <div
         ref={mergeRefs([ref, localRef])}
-        className='z-10 flex flex-col justify-center w-full px-2 mx-auto grow dom text-gray-50 max-w-7xl sm:px-6 lg:px-8 py-50'>
+        className='z-10 justify-center w-full px-2 mx-auto grid grid-cols-2 grow dom text-gray-50 max-w-7xl sm:px-6 lg:px-8 py-50'>
         {children}
       </div>
       <Footer />

@@ -9,7 +9,7 @@ import { useRouter } from 'next/router'
 // WARNING ! errors might get obfuscated by using dynamic import.
 // If something goes wrong go back to a static import to show the error.
 // https://github.com/pmndrs/react-three-next/issues/49
-const Logo = dynamic(() => import('@/components/canvas/Logo'), { ssr: false })
+const Globe = dynamic(() => import('@/components/canvas/Globe'), { ssr: false })
 
 // Dom components go here
 export default function Page({ providers, error, status }) {
@@ -49,7 +49,7 @@ export default function Page({ providers, error, status }) {
 
 // Canvas components go here
 // It will receive same props as the Page component (from getStaticProps, etc.)
-// Page.canvas = (props) => <Logo scale={0.5} route='/blob' position-y={-1} />
+Page.canvas = (props) => <Globe />
 
 export async function getStaticProps() {
   const { credentials } = require('@grpc/grpc-js')

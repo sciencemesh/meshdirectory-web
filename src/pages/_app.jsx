@@ -17,7 +17,7 @@ export default function App({ Component, pageProps = { title: 'index' } }) {
          * Setting the event source to a shared parent allows both the dom and the canvas to receive events.
          * Since the event source is now shared, the canvas would block events, we prevent that with pointerEvents: none. */}
         {Component?.canvas && (
-          <Scene className='pointer-events-none' eventSource={ref} eventPrefix='client'>
+          <Scene className='overflow-visible pointer-events-none w-[50vw]' eventSource={ref} eventPrefix='client'>
             {Component.canvas(pageProps)}
           </Scene>
         )}

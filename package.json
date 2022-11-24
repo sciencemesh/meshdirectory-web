@@ -34,6 +34,7 @@
     "react-icons": "^4.6.0",
     "react-merge-refs": "^2.0.1",
     "three": "^0.146.0",
+    "three-globe": "^2.24.10",
     "three-stdlib": "^2.17.3",
     "use-local-storage-state": "^18.1.1"
   },
