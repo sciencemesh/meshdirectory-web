@@ -6,7 +6,7 @@ import { useFrame, useThree } from '@react-three/fiber'
 
 const siteCamPosition = new Vector3()
 
-export default function Globe({ fromProvider, withProvider, camTilt = 30, camZoom = 0.6 }) {
+export default function Globe({ fromProvider, withProvider, camTilt = 30, camZoom = 2 }) {
   const meshRef = useRef(null)
   const { camera } = useThree()
 
@@ -62,14 +62,14 @@ export default function Globe({ fromProvider, withProvider, camTilt = 30, camZoo
       .hexBinPointWeight(3)
       .hexBinResolution(3)
       .hexMargin(0.1)
-      .hexTopColor((d) => (d.isTarget ? 'green' : 'rgba(255,100,50,0.9)'))
+      .hexTopColor((d) => (d.isTarget ? 'green' : '#243548'))
       .hexSideColor((d) => (d.isTarget ? 'green' : 'rgba(255,100,50,1)'))
       .hexBinMerge(false)
 
     const { x: fromX, y: fromY, z: fromZ } = Globe.getCoords(fromCoords.lat, fromCoords.lng, 1.5)
 
     if (toCoords) {
-      const { x: toX, y: toY, z: toZ } = Globe.getCoords(toCoords.lat, toCoords.lng, Math.max(1, 1.5 - camZoom))
+      const { x: toX, y: toY, z: toZ } = Globe.getCoords(toCoords.lat, toCoords.lng, Math.max(0.2, 1.5 - camZoom))
 
       siteCamPosition.set((fromX + toX) / 2 - camTilt, (fromY + toY) / 2 - camTilt, (fromZ + toZ) / 2)
     } else {

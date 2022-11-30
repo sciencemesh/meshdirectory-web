@@ -9,7 +9,9 @@ const Layout = forwardRef(({ children, ...props }, ref) => {
   return (
     <div className='flex flex-col min-h-screen'>
       <Navbar />
-      <div ref={mergeRefs([ref, localRef])} className='justify-center w-screen dom text-gray-50'>
+      <div
+        ref={mergeRefs([ref, localRef])}
+        className='flex flex-row justify-between w-screen min-h-screen mx-auto max-w-7xl dom text-gray-50'>
         {children}
       </div>
       <Footer />
