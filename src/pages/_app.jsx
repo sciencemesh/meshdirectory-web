@@ -27,7 +27,7 @@ export default function App({ Component, pageProps = { title: 'index' } }) {
          * Since the event source is now shared, the canvas would block events, we prevent that with pointerEvents: none. */}
         {Component?.canvas && fromProvider && (
           <div className='relative w-auto h-full overflow-visible pl-[60vw]'>
-            <Scene className='right-0 !absolute !pointer-events-none !overflow-visible !w-[80vw] !h-[60vh]'>
+            <Scene className='right-0 !absolute !pointer-events-none !overflow-visible !h-[100vh] !w-[80vw]'>
               {Component.canvas({ ...pageProps, fromProvider, withProvider })}
             </Scene>
           </div>
