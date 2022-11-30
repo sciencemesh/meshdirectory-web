@@ -12,23 +12,34 @@ import { useRouter } from 'next/router'
 const Globe = dynamic(() => import('@/components/canvas/Globe'), { ssr: false })
 
 // Dom components go here
-export default function Page({ providers, error, status }) {
+export default function Page({
+  providers,
+  error,
+  status,
+  fromProvider,
+  setFromProvider,
+  withProvider,
+  setWithProvider,
+}) {
   const { query, isReady } = useRouter()
-  const [withProvider, setWithProvider] = React.useState(null)
   const { providerDomain, token } = query
+  const from = providers.find((p) => p.domain.toLowerCase() === providerDomain?.toLowerCase())
+
+  React.useEffect(() => {
+    setFromProvider(from)
+  }, [from, setFromProvider])
 
   if (isRejected(status)) {
     const { status, message } = error
     return <Error status={status} details={message} />
   }
 
-  const fromProvider = providers.find((p) => p.domain.toLowerCase() === providerDomain?.toLowerCase())
-
   if (isReady) {
-    if (!fromProvider) {
+    if (!from) {
       return (
         <Error status={400} message='Invite link is broken' details='Originating ScienceMesh site could not be found' />
       )
+    } else {
     }
     if (!token) {
       return <Error status={400} message='Invite link is broken' details='Token missing or invalid' />
@@ -49,7 +60,7 @@ export default function Page({ providers, error, status }) {
 
 // Canvas components go here
 // It will receive same props as the Page component (from getStaticProps, etc.)
-Page.canvas = (props) => <Globe />
+Page.canvas = (props) => <Globe {...props} />
 
 export async function getStaticProps() {
   const { credentials } = require('@grpc/grpc-js')

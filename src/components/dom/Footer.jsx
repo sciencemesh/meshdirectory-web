@@ -1,6 +1,6 @@
 import logoDarkBg from '#/img/logo-dark-bg.svg'
 import NavLink from '@/components/dom/NavLink'
-import Image from "next/legacy/image";
+import Image from 'next/legacy/image'
 
 const RESOURCES_LINKS = [
   { name: 'Documentation', href: 'https://sciencemesh.io' },
@@ -10,7 +10,7 @@ const RESOURCES_LINKS = [
 
 export default function Footer() {
   return (
-    <footer className='p-4 border-t-4 border-primary bg-secondary sm:p-6'>
+    <footer className='p-4 border-t-4 shadow-inner border-primary bg-secondary sm:p-6'>
       <div className='mx-auto max-w-7xl sm:px-6 lg:px-8 py-50'>
         <div className='md:flex md:justify-between'>
           <div className='mb-6 md:mb-0'>
