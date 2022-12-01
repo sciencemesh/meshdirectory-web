@@ -26,6 +26,15 @@ The service can be configured by setting the following Node environment variable
 | **IOP_GATEWAY**   | URL of your IOP deployment GRPC gateway               | localhost:19000                                          |
 | **LOCATIONS_API** | API URL used to fetch mesh providers geolocation data | <https://iop.sciencemesh.uni-muenster.de/iop/mentix/loc> |
 
+## Usage
+
+To run the NextJS server with a production-optimized version of the app, execute:
+
+```shell
+yarn run build
+yarn run start
+```
+
 ## Contributing
 
 ### Local development

@@ -66,8 +66,7 @@ export async function getStaticProps() {
   const { credentials } = require('@grpc/grpc-js')
   const { GatewayAPIClient } = require('@cs3org/node-cs3apis/cs3/gateway/v1beta1/gateway_api_grpc_pb')
   const { ListAllProvidersRequest } = require('@cs3org/node-cs3apis/cs3/ocm/provider/v1beta1/provider_api_pb')
-
-  const IOP_GATEWAY = process.env.IOP_GATEWAY || 'sciencemesh.cesnet.cz:443' || 'localhost:19000'
+  const IOP_GATEWAY = process.env.IOP_GATEWAY || 'localhost:19000'
   const LOCATIONS_API = process.env.LOCATIONS_API || 'https://iop.sciencemesh.uni-muenster.de/iop/mentix/loc'
 
   const client = new GatewayAPIClient(IOP_GATEWAY, credentials.createInsecure(), {})
