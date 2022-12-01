@@ -19,18 +19,18 @@ function promisifyAll (client) {
 
 function getInviteAPI (provider, action) {
   const { servicesList } = provider
-  const sciencemeshService = servicesList.find(s => s.endpoint?.type?.name.toLowerCase() === 'efss_webapp')
+  const sciencemeshAppService = servicesList.find(s => s.endpoint?.type?.name.toLowerCase() === 'efss_webapp')
   const ocmApiFallbackService = servicesList.find(s => s.endpoint?.type?.name.toLowerCase() === 'ocm')
 
   if (!sciencemeshService && !ocmApiFallbackService) {
     return
   }
 
-  const { endpoint } = sciencemeshService ?? ocmApiFallbackService
+  const { endpoint } = sciencemeshAppService ?? ocmApiFallbackService
   const baseURL = new URL(endpoint.path)
 
   if (action === 'accept') {
-    return sciencemeshService
+    return sciencemeshAppService
       ? new URL('accept', baseURL)
       : new URL('invites/forward', baseURL)
   }

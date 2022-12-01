@@ -39,7 +39,7 @@ function Error({ status, message, details }) {
                 Try again
               </Link>
               <Link
-                className='inline-flex items-center px-4 text-sm text-white border rounded-md border-secondary text-secondary hover:bg-secondary-dark hover:text-white'
+                className='inline-flex items-center px-4 text-sm border rounded-md border-secondary text-secondary hover:bg-secondary-dark hover:text-white'
                 href='https://cs3mesh4eosc.eu/contact'>
                 Contact support
               </Link>

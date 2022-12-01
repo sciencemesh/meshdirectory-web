@@ -51,7 +51,7 @@ export default function ProviderSelect({ providers, selected, onChange }) {
   const [geoSupport, setGeoSupport] = useState(false)
   const [geoLoading, setGeoLoading] = useState(false)
   const [query, setQuery] = useState('')
-  const providersInput = useRef(null)
+  const queryInput = useRef(null)
   const providersComboToggle = useRef(null)
 
   const isPreferred = (provider) => preferredProviders.includes(provider.name)
@@ -92,7 +92,7 @@ export default function ProviderSelect({ providers, selected, onChange }) {
   }
 
   useEffect(() => {
-    providersInput.current.focus()
+    queryInput.current.focus()
     // https://github.com/tailwindlabs/headlessui/discussions/1236
     providersComboToggle.current.click()
     if (navigator.geolocation) {
@@ -107,7 +107,7 @@ export default function ProviderSelect({ providers, selected, onChange }) {
           <div className='flex flex-col'>
             <div className='relative w-full overflow-hidden text-left bg-white border-b-2 border-dotted cursor-default border-b-primary focus:outline-none focus:ring-2 focus:ring-orange sm:text-sm'>
               <Combobox.Input
-                ref={providersInput}
+                ref={queryInput}
                 aria-label='Enter your ScienceMesh site'
                 className='w-full py-2 pr-10 text-4xl truncate border-none leading-5 focus:ring-0 text-primary-dark focus:outline-none'
                 onChange={(event) => setQuery(event.target.value)}

@@ -5,6 +5,7 @@ import { Vector3, MeshPhongMaterial } from 'three'
 import { useFrame, invalidate } from '@react-three/fiber'
 
 const siteCamPosition = new Vector3()
+const whitePhongMaterial = new MeshPhongMaterial({ color: 0xffffff, transparent: false })
 
 export default function Globe({ fromProvider, withProvider, camTilt = 30, camZoom = 2 }) {
   const meshRef = useRef(null)
@@ -20,7 +21,7 @@ export default function Globe({ fromProvider, withProvider, camTilt = 30, camZoo
         .hexPolygonColor(() => '#0C80AA') // primary-dark
         .atmosphereColor('#1F91CC') // primary
         .atmosphereAltitude(0.15)
-        .globeMaterial(new MeshPhongMaterial({ color: 0xffffff, transparent: false })),
+        .globeMaterial(whitePhongMaterial),
     [],
   )
 
