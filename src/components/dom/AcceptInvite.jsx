@@ -1,17 +1,20 @@
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 import ProviderSelect from '@/components/dom/ProviderSelect'
 import ErrorBanner from '@/components/dom/ErrorBanner'
+import { getInviteAPI } from '@/util'
 
 export default function AcceptInvite({ from, withProvider, setWithProvider, providers }) {
   const [error, setError] = useState(null)
+  const { query, push: redirect } = useRouter()
 
   function acceptInvite() {
-    if (!canAccept) {
+    if (!withProvider) {
       setClientError({ message: 'Please choose a valid ScienceMesh site' })
       return
     }
 
-    const inviteApiURL = getInviteAPI(selectedProvider, 'accept')
+    const inviteApiURL = getInviteAPI(withProvider, 'accept')
     if (!inviteApiURL) {
       setError({
         message: "This site doesn't host required services. Please choose another one.",
