@@ -21,10 +21,10 @@ yarn install
 
 The service can be configured by setting the following Node environment variables:
 
-| Name          | Description                                           | Default value                                            |
-| ------------- | ----------------------------------------------------- | -------------------------------------------------------- |
-| IOP_GATEWAY   | URL of your IOP deployment GRPC gateway               | localhost:19000                                          |
-| LOCATIONS_API | API URL used to fetch mesh providers geolocation data | <https://iop.sciencemesh.uni-muenster.de/iop/mentix/loc> |
+| Name              | Description                                           | Default value                                            |
+| ----------------- | ----------------------------------------------------- | -------------------------------------------------------- |
+| **IOP_GATEWAY**   | URL of your IOP deployment GRPC gateway               | localhost:19000                                          |
+| **LOCATIONS_API** | API URL used to fetch mesh providers geolocation data | <https://iop.sciencemesh.uni-muenster.de/iop/mentix/loc> |
 
 ## Contributing
 
