@@ -33,7 +33,7 @@ jobs:
       - run: npm install -g yarn
       - run: yarn install --frozen-lockfile
       - run: yarn run eslint
-      - run: yarn run build --if-present
+      - run: yarn run build
       - run: yarn run export
       - run: git status
       - name: Set RELEASE_VERSION
