@@ -10,7 +10,7 @@
   },
   "scripts": {
     "lint": "yarn prettier && yarn eslint",
-    "eslint": "next lint --fix --dir src",
+    "eslint": "next lint --dir src",
     "prettier": "prettier -l \"./src/**/*.{js,jsx,md}\"",
     "dev": "next dev",
     "build": "next build",
