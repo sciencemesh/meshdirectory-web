@@ -26,11 +26,9 @@ export default function App({ Component, pageProps = { title: 'index' } }) {
          * Setting the event source to a shared parent allows both the dom and the canvas to receive events.
          * Since the event source is now shared, the canvas would block events, we prevent that with pointerEvents: none. */}
         {Component?.canvas && fromProvider && (
-          <div className='relative w-auto h-full overflow-visible pl-[60vw]'>
-            <Scene className='right-0 !absolute !pointer-events-none !overflow-visible !h-[100vh] !w-[80vw]'>
-              {Component.canvas({ ...pageProps, fromProvider, withProvider })}
-            </Scene>
-          </div>
+          <Scene className='hidden sm:block !absolute !top-0 !left-0 !pointer-events-none !overflow-visible !h-[100vh] !w-screen'>
+            {Component.canvas({ ...pageProps, fromProvider, withProvider })}
+          </Scene>
         )}
       </Layout>
     </>

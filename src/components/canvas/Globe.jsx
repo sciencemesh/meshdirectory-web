@@ -1,26 +1,28 @@
 import { useRef, useEffect, useMemo } from 'react'
-import countries from '#/data/countries.geo.json'
+import land from '#/data/land.geo.min.json'
 import ThreeGlobe from 'three-globe'
 import { Vector3, MeshPhongMaterial } from 'three'
-import { useFrame, invalidate } from '@react-three/fiber'
+import { useFrame } from '@react-three/fiber'
 
 const siteCamPosition = new Vector3()
 const whitePhongMaterial = new MeshPhongMaterial({ color: 0xffffff, transparent: false })
 
-export default function Globe({ fromProvider, withProvider, camTilt = 30, camZoom = 2 }) {
+export default function Globe({ fromProvider, withProvider, camTilt = 20, camZoom = 2.3 }) {
   const meshRef = useRef(null)
+  const camFov = useRef(50)
 
   const Globe = useMemo(
     () =>
       new ThreeGlobe({ waitForGlobeReady: true, animateIn: false })
         .showGlobe(true)
-        .hexPolygonsData(countries.features)
+        .hexPolygonsData([land])
         .hexPolygonResolution(3)
         .hexPolygonMargin(0.1)
+        .hexPolygonCurvatureResolution(1)
         .hexPolygonsTransitionDuration(500)
         .hexPolygonColor(() => '#0C80AA') // primary-dark
-        .atmosphereColor('#1F91CC') // primary
-        .atmosphereAltitude(0.15)
+        .atmosphereColor('#0C80AA') // primary
+        .atmosphereAltitude(0.14)
         .globeMaterial(whitePhongMaterial),
     [],
   )
@@ -66,12 +68,12 @@ export default function Globe({ fromProvider, withProvider, camTilt = 30, camZoo
         },
       ])
         .arcColor('color')
-        .arcDashLength(0.78)
-        .arcStroke(0.5)
-        .arcDashGap(() => 0.3)
-        .arcAltitudeAutoScale(2.5)
-        .arcDashInitialGap(() => 2)
-        .arcDashAnimateTime(1500)
+        .arcDashLength(0.078)
+        .arcStroke(0.3)
+        .arcDashGap(() => 0.03)
+        .arcAltitudeAutoScale(2)
+        .arcDashInitialGap(() => 1.2)
+        .arcDashAnimateTime(4000)
     }
   }, [fromCoords, toCoords, Globe])
 
@@ -80,11 +82,12 @@ export default function Globe({ fromProvider, withProvider, camTilt = 30, camZoo
 
     if (toCoords) {
       const { x: toX, y: toY, z: toZ } = Globe.getCoords(toCoords.lat, toCoords.lng, Math.max(0.2, 1.5 - camZoom))
-      siteCamPosition.set((fromX + toX) / 2 - camTilt, (fromY + toY) / 2 - camTilt, (fromZ + toZ) / 2)
+      siteCamPosition.set((fromX + toX) / 2 - camTilt * 1.2, (fromY + toY) / 2 + camTilt, (fromZ + toZ) / 2)
+      camFov.current = 45
     } else {
-      siteCamPosition.set(fromX - camTilt, fromY - camTilt, fromZ)
+      siteCamPosition.set(fromX - camTilt * 1.2, fromY + camTilt, fromZ)
+      camFov.current = 50
     }
-    invalidate()
   }, [fromCoords, toCoords, Globe, camTilt, camZoom])
 
   useFrame((state) => {
@@ -93,8 +96,12 @@ export default function Globe({ fromProvider, withProvider, camTilt = 30, camZoo
     state.camera.position.lerp(siteCamPosition, 0.1)
     // focusVec.y = focusVec.y + Math.sin(state.clock.getElapsedTime() * 2)
     state.camera.lookAt(meshRef.current.position)
+    if (state.camera.fov < camFov.current) {
+      state.camera.fov = state.camera.fov + 0.1
+    } else if (state.camera.fov > camFov) {
+      state.camera.fov = state.camera.fov - 0.1
+    }
     state.camera.updateProjectionMatrix()
-    invalidate()
   })
-  return <primitive ref={meshRef} object={Globe} position={[0, 0, 0]}></primitive>
+  return <primitive ref={meshRef} object={Globe} position={[0, 0, 0]} />
 }

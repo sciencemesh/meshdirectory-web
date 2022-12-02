@@ -40,13 +40,13 @@ export default function AcceptInvite({ from, withProvider, setWithProvider, prov
   }
 
   return (
-    <div className='z-20 pl-10 pr-6  min-w-[25vw] bg-white/75 backdrop-blur-md'>
-      <section className='flex flex-col items-start justify-center pl-6 my-24 text-left grow text-md text-secondary gap-6'>
+    <div className='left-0 z-20 h-full px-6 mx-auto sm:absolute md:px-10 bg-white/80 backdrop-blur-md'>
+      <section className='flex flex-col items-center justify-center my-24 text-center sm:items-start sm:text-left sm:py-6 grow text-md text-secondary gap-6'>
         <span className='inline-block font-light'>Accept an invitation to collaborate from</span>
         <span className='py-2 text-4xl font-medium border-b-2 border-dotted border-b-primary text-primary-dark'>
           {from?.fullName || <div className='w-48 h-8 rounded-sm animate-pulse bg-slate-300' />}
         </span>
-        <span className='inline-block font-light'>with your</span>
+        <span className='inline-block font-light'>using your</span>
         <div className='w-auto max-w-7xl'>
           <ProviderSelect providers={providers} selected={withProvider} onChange={onProviderChange} />
           {error && <ErrorBanner className='mt-2' error={error} />}

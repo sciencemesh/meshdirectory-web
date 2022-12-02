@@ -30,7 +30,7 @@ const ProviderOption = ({ provider, preferred, togglePreferred }) => (
           tabIndex='-1'
           onClick={(e) => togglePreferred(e, provider)}
           className={`absolute inset-y-0 left-0 flex items-center pl-3 z-20 ${
-            preferred ? 'text-yellow-500' : 'text-white'
+            preferred ? 'text-yellow-500' : 'text-gray-100'
           }`}>
           {preferred ? (
             <HiStar className='w-5 h-5' aria-hidden='true' />
@@ -105,11 +105,11 @@ export default function ProviderSelect({ providers, selected, onChange }) {
       {({ open }) => (
         <>
           <div className='flex flex-col'>
-            <div className='relative w-full overflow-hidden text-left bg-white border-b-2 border-dotted cursor-default border-b-primary focus:outline-none focus:ring-2 focus:ring-orange sm:text-sm'>
+            <div className='relative w-full overflow-hidden text-center border-b-2 border-dotted rounded-sm cursor-default bg-white/75 backdrop-blur-md sm:text-left border-b-primary focus:outline-none focus:ring-2 focus:ring-orange sm:text-sm'>
               <Combobox.Input
                 ref={queryInput}
                 aria-label='Enter your ScienceMesh site'
-                className='w-full py-2 pr-10 text-4xl truncate border-none leading-5 focus:ring-0 text-primary-dark focus:outline-none'
+                className='w-full py-2 pr-10 text-4xl text-center truncate border-none  sm:text-left leading-5 bg-white/75 backdrop-blur-md focus:ring-0 text-primary-dark focus:outline-none'
                 onChange={(event) => setQuery(event.target.value)}
                 displayValue={(provider) => provider?.fullName}
               />

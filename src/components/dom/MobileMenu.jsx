@@ -34,7 +34,7 @@ export default function MobileMenu({ links }) {
                         className={`${
                           active ? 'bg-blue text-white' : 'text-gray'
                         } flex w-full items-center px-4 py-4 text-md`}
-                        href={link.to}>
+                        href={link.href}>
                         {link.name}
                       </a>
                     )}

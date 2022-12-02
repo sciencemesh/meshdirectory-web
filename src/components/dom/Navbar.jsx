@@ -18,7 +18,7 @@ const MOBILE_LINKS = [{ name: 'Home', href: '/', current: true }, ...NAV_LINKS]
 export default function Navbar() {
   return (
     <header className='sticky top-0 z-30 w-full bg-white/50 bg-opacity-95 text-secondary-dark backdrop-blur-md '>
-      <nav className='flex items-center justify-between w-full mx-auto h-28 max-w-7xl sm:px-6 lg:px-8 py-50'>
+      <nav className='flex items-center justify-between w-full mx-auto h-28 max-w-7xl sm:px-6 lg:px-8'>
         <div className='flex items-center flex-grow'>
           <NavLink href='/' current className='flex items-center'>
             <Image

@@ -11,7 +11,7 @@ const RESOURCES_LINKS = [
 export default function Footer() {
   return (
     <footer className='p-4 border-t-4 shadow-inner border-primary bg-secondary sm:p-6'>
-      <div className='mx-auto max-w-7xl sm:px-6 lg:px-8 py-50'>
+      <div className='mx-auto max-w-7xl sm:px-6 lg:px-8'>
         <div className='md:flex md:justify-between'>
           <div className='mb-6 md:mb-0'>
             <NavLink href='https://cs3mesh4eosc.eu/' current className='flex items-center'>
@@ -26,7 +26,7 @@ export default function Footer() {
               />
             </NavLink>
           </div>
-          <div className='grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3'>
+          <div className='flex flex-col items-center text-center md:text-start md:grid md:grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3'>
             <div>
               <h2 className='mb-6 text-sm font-semibold text-white uppercase'>Resources</h2>
               <ul className='text-gray-200'>

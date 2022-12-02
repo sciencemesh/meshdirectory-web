@@ -22,7 +22,7 @@ function getInviteAPI (provider, action) {
   const sciencemeshAppService = servicesList.find(s => s.endpoint?.type?.name.toLowerCase() === 'efss_webapp')
   const ocmApiFallbackService = servicesList.find(s => s.endpoint?.type?.name.toLowerCase() === 'ocm')
 
-  if (!sciencemeshService && !ocmApiFallbackService) {
+  if (!sciencemeshAppService && !ocmApiFallbackService) {
     return
   }
 
