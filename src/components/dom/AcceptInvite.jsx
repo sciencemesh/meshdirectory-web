@@ -47,7 +47,7 @@ export default function AcceptInvite({ from, withProvider, setWithProvider, prov
           {from?.fullName || <div className='w-48 h-8 rounded-sm animate-pulse bg-slate-300' />}
         </span>
         <span className='inline-block font-light'>using your</span>
-        <div className='w-auto max-w-7xl'>
+        <div className='w-auto min-w-[25rem] max-w-7xl'>
           <ProviderSelect providers={providers} selected={withProvider} onChange={onProviderChange} />
           {error && <ErrorBanner className='mt-2' error={error} />}
         </div>
