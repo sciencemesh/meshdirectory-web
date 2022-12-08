@@ -28,15 +28,15 @@ export default function Header({ title = titleDefault }) {
       <meta name='og:title' content={title} />
       <meta name='og:type' content='site' />
       <meta name='og:url' content={url} />
-      <meta name='og:image' content={'/icons/share.png'} />
+      <meta name='og:image' content={'/iop/meshdir/icons/share.png'} />
       <meta name='og:site_name' content={title} />
       <meta name='og:description' content={description} />
 
       {/* <link rel='apple-touch-icon' href='/icons/apple-touch-icon.png' /> */}
-      <link rel='apple-touch-icon' sizes='16x16' href='/icons/favicon-16x16.png' />
-      <link rel='apple-touch-icon' sizes='32x32' href='/icons/favicon-32x32.png' />
+      <link rel='apple-touch-icon' sizes='16x16' href='/iop/meshdir/icons/favicon-16x16.png' />
+      <link rel='apple-touch-icon' sizes='32x32' href='/iop/meshdir/icons/favicon-32x32.png' />
       {/* <link rel='apple-touch-icon' sizes='180x180' href='/icons/apple-touch-icon.png' /> */}
-      <link rel='manifest' href='/manifest.json' />
+      <link rel='manifest' href='/iop/meshdir/manifest.json' />
       {/* <link rel='mask-icon' color='#000000' href='/icons/safari-pinned-tab.svg' /> */}
       {/* <link rel='apple-touch-startup-image' href='/startup.png' /> */}
 
@@ -45,7 +45,7 @@ export default function Header({ title = titleDefault }) {
         <meta name="HandheldFriendly" content="true"/>  */}
       <meta name='viewport' content='width=device-width, minimum-scale=1, initial-scale=1.0' />
       <meta name='theme-color' content='#1F91CC' />
-      <link rel='shortcut icon' href='/icons/favicon.ico' />
+      <link rel='shortcut icon' href='/iop/meshdir/icons/favicon.ico' />
 
       {/* 
       Twitter Summary card

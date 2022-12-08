@@ -4,7 +4,7 @@ services:
   node:
     build: .
     environment:
-      IOP_GATEWAY: revad:19000
+      IOP_HOST: revad:19000
     volumes:
       - ./:/app/
     ports:

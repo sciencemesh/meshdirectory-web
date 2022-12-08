@@ -66,10 +66,10 @@ export async function getStaticProps() {
   const { credentials } = require('@grpc/grpc-js')
   const { GatewayAPIClient } = require('@cs3org/node-cs3apis/cs3/gateway/v1beta1/gateway_api_grpc_pb')
   const { ListAllProvidersRequest } = require('@cs3org/node-cs3apis/cs3/ocm/provider/v1beta1/provider_api_pb')
-  const IOP_GATEWAY = process.env.IOP_GATEWAY || 'localhost:19000'
+  const TARGET = process.env.IOP_HOST || 'localhost:19000'
   const LOCATIONS_API = process.env.LOCATIONS_API || 'https://iop.sciencemesh.uni-muenster.de/iop/mentix/loc'
 
-  const client = new GatewayAPIClient(IOP_GATEWAY, credentials.createInsecure(), {})
+  const client = new GatewayAPIClient(TARGET, credentials.createSsl(), {})
   const { listAllProviders } = promisifyAll(client)
 
   let req = new ListAllProvidersRequest()
@@ -80,8 +80,7 @@ export async function getStaticProps() {
 
   try {
     const res = await listAllProviders(req)
-    const providerList = res.getProvidersList()
-    providers = providerList.map((providerInfo) => providerInfo.toObject())
+    providers = res.getProvidersList().map((providerInfo) => providerInfo.toObject())
     status = 'resolved'
   } catch (err) {
     error = err
@@ -109,7 +108,7 @@ export async function getStaticProps() {
     },
     // Next.js will attempt to re-generate the page:
     // - When a request comes in
-    // - At most once every 1h
-    revalidate: 3600,
+    // - At most once every 10min
+    revalidate: 600,
   }
 }

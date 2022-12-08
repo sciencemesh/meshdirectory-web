@@ -28,7 +28,6 @@ function getInviteAPI (provider, action) {
 
   const { endpoint } = sciencemeshAppService ?? ocmApiFallbackService
   const baseURL = new URL(endpoint.path)
-
   if (action === 'accept') {
     return sciencemeshAppService
       ? new URL('accept', baseURL)
