@@ -27,6 +27,7 @@ const ProviderOption = ({ provider, preferred, togglePreferred }) => {
       break
     case 'owncloud':
       EFSSIcon = OwnCloudIcon
+      break
     default:
       break
   }
@@ -39,7 +40,7 @@ const ProviderOption = ({ provider, preferred, togglePreferred }) => {
           active ? 'bg-primary-dark text-white' : 'text-gray-900'
         }`
       }>
-      {({ selected }) => (
+      {({ selected, active }) => (
         <>
           <button
             aria-hidden='true'
@@ -56,7 +57,7 @@ const ProviderOption = ({ provider, preferred, togglePreferred }) => {
             {provider.fullName || provider.name}
           </span>
           {EFSSIcon && (
-            <span className={({ active }) => `self-end ${active ? 'text-gray-100' : '!text-primary'}`}>
+            <span className={`self-end ${active ? 'text-gray-100' : '!text-primary'}`} title={efssProduct}>
               <EFSSIcon className='w-5 h-5' aria-hidden='true' />
             </span>
           )}
@@ -113,7 +114,6 @@ export default function ProviderSelect({ providers, selected, onChange }) {
         : [...currentPreferred, provider.name],
     )
   }
-  console.log('f', filteredProviders)
 
   useEffect(() => {
     queryInput.current.focus()
@@ -169,7 +169,7 @@ export default function ProviderSelect({ providers, selected, onChange }) {
               afterLeave={() => setQuery('')}>
               <Combobox.Options
                 static
-                className='w-full py-1 mt-2 overflow-auto text-base bg-white border-t-0 rounded-sm max-h-60 shadow-sm border-10 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm'>
+                className='w-full py-1 mt-2 overflow-auto text-base bg-white border-t-0 rounded-sm shadow-md max-h-60 border-10 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm'>
                 {sortedProviders.length === 0 && query !== '' ? (
                   <NoResults query={query} />
                 ) : (

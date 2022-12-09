@@ -28,11 +28,11 @@ export default function Globe({ fromProvider, withProvider, camTilt = 20, camZoo
   )
 
   const fromCoords = useMemo(
-    () => (fromProvider ? { lat: fromProvider.location.lat, lng: fromProvider.location.lon } : null),
+    () => (fromProvider ? { lat: fromProvider.location?.lat || 0, lng: fromProvider.location?.lon || 0 } : null),
     [fromProvider],
   )
   const toCoords = useMemo(
-    () => (withProvider ? { lat: withProvider.location.lat, lng: withProvider.location.lon } : null),
+    () => (withProvider ? { lat: withProvider.location?.lat || 0, lng: withProvider.location?.lon || 0 } : null),
     [withProvider],
   )
 
@@ -71,7 +71,7 @@ export default function Globe({ fromProvider, withProvider, camTilt = 20, camZoo
         .arcDashLength(0.078)
         .arcStroke(0.3)
         .arcDashGap(() => 0.03)
-        .arcAltitudeAutoScale(2)
+        .arcAltitudeAutoScale(1)
         .arcDashInitialGap(() => 1.2)
         .arcDashAnimateTime(4000)
     }
