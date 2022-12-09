@@ -23,7 +23,7 @@ const ProviderOption = ({ provider, preferred, togglePreferred }) => (
     {({ selected }) => (
       <>
         <span className={`block truncate ${selected ? 'font-semibold text-lg' : 'font-normal'}`}>
-          {provider.fullName}
+          {provider.fullName || provider.name}
         </span>
         <button
           aria-hidden='true'
@@ -111,7 +111,7 @@ export default function ProviderSelect({ providers, selected, onChange }) {
                 aria-label='Enter your ScienceMesh site'
                 className='w-full py-2 pr-10 text-4xl text-center truncate border-none  sm:text-left leading-5 bg-white/75 backdrop-blur-md focus:ring-0 text-primary-dark focus:outline-none'
                 onChange={(event) => setQuery(event.target.value)}
-                displayValue={(provider) => provider?.fullName}
+                displayValue={(provider) => provider?.fullName || provider?.name}
               />
               <Combobox.Button
                 ref={providersComboToggle}

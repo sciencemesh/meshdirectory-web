@@ -6,7 +6,7 @@ services:
     command: yarn run start
     container_name: meshdirectory
     environment:
-      IOP_HOST: revad:19000
+      IOP_HOST: iop-gateway:19000
     volumes:
       - ./:/app/
     ports:

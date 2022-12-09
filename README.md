@@ -21,10 +21,23 @@ yarn install
 
 The service can be configured by setting the following Node environment variables:
 
-| Name              | Description                                           | Default value                                            |
-| ----------------- | ----------------------------------------------------- | -------------------------------------------------------- |
-| **IOP_HOST**      | Hostname and port of your IOP deployment GRPC gateway | localhost:19000                                          |
-| **LOCATIONS_API** | API URL used to fetch mesh providers geolocation data | <https://iop.sciencemesh.uni-muenster.de/iop/mentix/loc> |
+| Name              | Description                                                             | Default value                                            |
+| ----------------- | ----------------------------------------------------------------------- | -------------------------------------------------------- |
+| **IOP_HOST**      | Hostname and port of your IOP deployment GRPC gateway                   | localhost:19000                                          |
+| **IOP_INSECURE**  | Whether or not insecure connection to the IOP_HOST should be used       | false                                                    |
+| **LOCATIONS_API** | API URL used to fetch mesh providers geolocation data                   | <https://iop.sciencemesh.uni-muenster.de/iop/mentix/loc> |
+| **PROVIDERS_API** | Use this API to pull mesh providers metadata, instead of using IOP_HOST |                                                          |
+
+This application periodically pulls metadata of CS3 mesh providers using one of configured methods:
+
+### Using a Reva or CS3 APIs compliant service
+
+Uses [ListAllProvidersRequest](https://cs3org.github.io/cs3apis/#cs3.ocm.provider.v1beta1.ListAllProvidersRequest) to
+query info on all CS3 mesh providers from a configured `IOP_HOST` GRPC endpoint.
+
+### Using Mentix Central database export API
+
+When `PROVIDERS_API` is specified, this application fetches CS3 mesh providers list from that URL instead.
 
 ## Usage
 

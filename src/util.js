@@ -69,9 +69,37 @@ function matches (provider, query) {
     .toLowerCase()
     .includes(query.toLowerCase())
     ||
-    provider.fullName
+    (provider.fullName ? provider.fullName
       .toLowerCase()
-      .includes(query.toLowerCase())
+      .includes(query.toLowerCase()) : false)
 }
 
-export { classNames, promisifyAll, isPending, isRejected, isResolved, getInviteAPI, getLocation, areEqual, matches, geoDistance };
+function toCamel (s) {
+  return s.replace(/([-_][a-z])/ig, ($1) => {
+    return $1.toUpperCase()
+      .replace('-', '')
+      .replace('_', '')
+  })
+}
+
+
+function camelizeProps (o) {
+  if (typeof o === 'object' && !Array.isArray(o)) {
+    const n = {}
+
+    Object.keys(o)
+      .forEach((k) => {
+        n[toCamel(k).replace('services', 'servicesList')] = camelizeProps(o[k])
+      })
+
+    return n;
+  } else if (Array.isArray(o)) {
+    return o.map((i) => {
+      return camelizeProps(i)
+    })
+  }
+
+  return o;
+}
+
+export { classNames, promisifyAll, isPending, isRejected, isResolved, getInviteAPI, getLocation, areEqual, matches, geoDistance, camelizeProps };

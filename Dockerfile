@@ -11,9 +11,9 @@ RUN yarn run build
 
 FROM node:16 as runner
 WORKDIR /app
-ENV NODE_ENV production
 ENV IOP_HOST iop-gateway:19000
 ENV LOCATIONS_API https://iop.sciencemesh.uni-muenster.de/iop/mentix/loc
+ENV PROVIDERS_API
 
 COPY --from=builder /app/next.config.js ./
 COPY --from=builder /app/public ./public

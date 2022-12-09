@@ -5,6 +5,7 @@ services:
     build: .
     environment:
       IOP_HOST: revad:19000
+      IOP_INSECURE: true
     volumes:
       - ./:/app/
     ports:

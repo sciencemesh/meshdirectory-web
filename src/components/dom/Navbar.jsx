@@ -27,7 +27,7 @@ export default function Navbar() {
               layout='fixed'
               height={72}
               width={200}
-              priority={false}
+              priority={true}
               alt='ScienceMesh Logo'
             />
             <span className='hidden text-2xl font-medium uppercase md:inline-block'>Directory</span>
