@@ -27,11 +27,19 @@ function getInviteAPI (provider, action) {
   }
 
   const { endpoint } = sciencemeshAppService ?? ocmApiFallbackService
-  const baseURL = new URL(endpoint.path)
+  const baseURL = new URL(endpoint.path) + '/'
   if (action === 'accept') {
     return sciencemeshAppService
       ? new URL('accept', baseURL)
       : new URL('invites/forward', baseURL)
+  }
+}
+
+async function getEFSSStatus (provider) {
+  const { servicesList } = provider
+  const efssStatus = servicesList.find(s => s.endpoint?.type?.name.toLowerCase() === 'efss_status')
+  if (efssStatus) {
+    return await (await fetch(efssStatus.endpoint.path)).json()
   }
 }
 
@@ -102,4 +110,4 @@ function camelizeProps (o) {
   return o;
 }
 
-export { classNames, promisifyAll, isPending, isRejected, isResolved, getInviteAPI, getLocation, areEqual, matches, geoDistance, camelizeProps };
+export { classNames, promisifyAll, isPending, isRejected, isResolved, getInviteAPI, getLocation, areEqual, matches, geoDistance, camelizeProps, getEFSSStatus };

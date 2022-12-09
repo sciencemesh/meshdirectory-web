@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import dynamic from 'next/dynamic'
 import Error from '@/pages/_error'
 import AcceptInvite from '@/components/dom/AcceptInvite'
-import { promisifyAll, isRejected, areEqual, getLocation, camelizeProps } from '@/util'
+import { promisifyAll, isRejected, areEqual, getLocation, camelizeProps, getInviteAPI, getEFSSStatus } from '@/util'
 
 const Globe = dynamic(() => import('@/components/canvas/Globe'), { ssr: false })
 
@@ -70,10 +70,14 @@ export async function getStaticProps() {
     const LOCATIONS_API = process.env.LOCATIONS_API || 'https://iop.sciencemesh.uni-muenster.de/iop/mentix/loc'
     try {
       providerLocations = await (await fetch(LOCATIONS_API)).json()
-      providers = providers.map((p) => {
-        const { latitude: lat, longitude: lon } = getLocation(p, providerLocations)
-        return { ...p, location: { lat, lon } }
-      })
+      providers = await Promise.all(
+        providers.map(async (p) => {
+          const { latitude: lat, longitude: lon } = getLocation(p, providerLocations)
+          const acceptAPI = getInviteAPI(p, 'accept').toString()
+          const efss = await getEFSSStatus(p)
+          return { ...p, location: { lat, lon }, acceptAPI, efss: efss || {} }
+        }),
+      )
     } catch (err) {}
   }
 

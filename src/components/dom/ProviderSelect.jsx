@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, Fragment } from 'react'
 import { HiChevronDown, HiOutlineStar, HiStar } from 'react-icons/hi'
+import { SiNextcloud, SiIcloud } from 'react-icons/si'
 import { BiCurrentLocation, BiLoaderCircle } from 'react-icons/bi'
 import useLocalStorageState from 'use-local-storage-state'
 import { Combobox, Transition } from '@headlessui/react'
@@ -14,34 +15,56 @@ const NoResults = ({}) => (
   />
 )
 
-const ProviderOption = ({ provider, preferred, togglePreferred }) => (
-  <Combobox.Option
-    value={provider}
-    className={({ active }) =>
-      `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-primary-dark text-white' : 'text-gray-900'}`
-    }>
-    {({ selected }) => (
-      <>
-        <span className={`block truncate ${selected ? 'font-semibold text-lg' : 'font-normal'}`}>
-          {provider.fullName || provider.name}
-        </span>
-        <button
-          aria-hidden='true'
-          tabIndex='-1'
-          onClick={(e) => togglePreferred(e, provider)}
-          className={`absolute inset-y-0 left-0 flex items-center pl-3 z-20 ${
-            preferred ? 'text-yellow-500' : 'text-gray-100'
-          }`}>
-          {preferred ? (
-            <HiStar className='w-5 h-5' aria-hidden='true' />
-          ) : (
-            <HiOutlineStar className='w-5 h-5' aria-hidden='true' />
+const NextcloudIcon = (props) => <SiNextcloud {...props} />
+const OwnCloudIcon = (props) => <SiIcloud {...props} />
+
+const ProviderOption = ({ provider, preferred, togglePreferred }) => {
+  let EFSSIcon = null
+  const efssProduct = provider.efss?.product || provider.efss?.productname
+  switch (efssProduct ? efssProduct.toLowerCase() : '') {
+    case 'nextcloud':
+      EFSSIcon = NextcloudIcon
+      break
+    case 'owncloud':
+      EFSSIcon = OwnCloudIcon
+    default:
+      break
+  }
+
+  return (
+    <Combobox.Option
+      value={provider}
+      className={({ active }) =>
+        `flex items-center no-wrap cursor-default select-none p-4 ${
+          active ? 'bg-primary-dark text-white' : 'text-gray-900'
+        }`
+      }>
+      {({ selected }) => (
+        <>
+          <button
+            aria-hidden='true'
+            tabIndex='-1'
+            onClick={(e) => togglePreferred(e, provider)}
+            className={`flex items-center pr-3 z-20 ${preferred ? 'text-yellow-500' : 'text-gray-100'}`}>
+            {preferred ? (
+              <HiStar className='w-5 h-5' aria-hidden='true' />
+            ) : (
+              <HiOutlineStar className='w-5 h-5' aria-hidden='true' />
+            )}
+          </button>
+          <span className={`grow truncate ${selected ? 'font-semibold text-lg' : 'font-normal'}`}>
+            {provider.fullName || provider.name}
+          </span>
+          {EFSSIcon && (
+            <span className={({ active }) => `self-end ${active ? 'text-gray-100' : '!text-primary'}`}>
+              <EFSSIcon className='w-5 h-5' aria-hidden='true' />
+            </span>
           )}
-        </button>
-      </>
-    )}
-  </Combobox.Option>
-)
+        </>
+      )}
+    </Combobox.Option>
+  )
+}
 
 export default function ProviderSelect({ providers, selected, onChange }) {
   const [preferredProviders, setPreferred] = useLocalStorageState('cs3.meshdir.preferredProviders', {
@@ -90,6 +113,7 @@ export default function ProviderSelect({ providers, selected, onChange }) {
         : [...currentPreferred, provider.name],
     )
   }
+  console.log('f', filteredProviders)
 
   useEffect(() => {
     queryInput.current.focus()

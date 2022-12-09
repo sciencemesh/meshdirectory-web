@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import ProviderSelect from '@/components/dom/ProviderSelect'
 import ErrorBanner from '@/components/dom/ErrorBanner'
-import { getInviteAPI } from '@/util'
 
 export default function AcceptInvite({ from, withProvider, setWithProvider, providers }) {
   const [error, setError] = useState(null)
@@ -14,22 +13,22 @@ export default function AcceptInvite({ from, withProvider, setWithProvider, prov
       return
     }
 
-    const inviteApiURL = getInviteAPI(withProvider, 'accept')
-    if (!inviteApiURL) {
+    if (!withProvider.acceptAPI) {
       setError({
         message: "This site doesn't host required services. Please choose another one.",
       })
       return
     }
 
+    const acceptApiURL = new URL(withProvider.acceptAPI)
     redirect({
       // Merge invite link query params with
       // target accept invitation API URL and redirect
-      origin: inviteApiURL.origin,
-      pathname: inviteApiURL.pathname,
-      protocol: inviteApiURL.protocol,
-      host: inviteApiURL.host,
-      hostname: inviteApiURL.hostname,
+      origin: acceptApiURL.origin,
+      pathname: acceptApiURL.pathname,
+      protocol: acceptApiURL.protocol,
+      host: acceptApiURL.host,
+      hostname: acceptApiURL.hostname,
       query,
     })
   }
