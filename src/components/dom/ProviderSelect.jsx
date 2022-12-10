@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, Fragment } from 'react'
 import { HiChevronDown, HiOutlineStar, HiStar } from 'react-icons/hi'
-import { SiNextcloud, SiIcloud } from 'react-icons/si'
-import { BiCurrentLocation, BiLoaderCircle } from 'react-icons/bi'
+import { SiNextcloud } from 'react-icons/si'
+import { BiCurrentLocation, BiLoaderCircle, BiCloud } from 'react-icons/bi'
 import useLocalStorageState from 'use-local-storage-state'
 import { Combobox, Transition } from '@headlessui/react'
 import ErrorBanner from '@/components/dom/ErrorBanner'
@@ -16,7 +16,7 @@ const NoResults = ({}) => (
 )
 
 const NextcloudIcon = (props) => <SiNextcloud {...props} />
-const OwnCloudIcon = (props) => <SiIcloud {...props} />
+const OwnCloudIcon = (props) => <BiCloud {...props} />
 
 const ProviderOption = ({ provider, preferred, togglePreferred }) => {
   let EFSSIcon = null

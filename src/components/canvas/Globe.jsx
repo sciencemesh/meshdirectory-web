@@ -3,92 +3,121 @@ import land from '#/data/land.geo.min.json'
 import ThreeGlobe from 'three-globe'
 import { Vector3, MeshPhongMaterial } from 'three'
 import { useFrame } from '@react-three/fiber'
+import { areEqual } from '@/util'
 
 const siteCamPosition = new Vector3()
 const whitePhongMaterial = new MeshPhongMaterial({ color: 0xffffff, transparent: false })
 
-export default function Globe({ fromProvider, withProvider, camTilt = 20, camZoom = 2.3 }) {
+const GlobeObj = new ThreeGlobe({ waitForGlobeReady: true, animateIn: false })
+  .showGlobe(true)
+  .hexPolygonsData([land])
+  .hexPolygonResolution(3)
+  .hexPolygonMargin(0.1)
+  .hexPolygonCurvatureResolution(1)
+  .hexPolygonsTransitionDuration(500)
+  .hexPolygonColor(() => '#0C80AA') // primary-dark
+  .atmosphereColor('#0C80AA') // primary
+  .atmosphereAltitude(0.14)
+  .globeMaterial(whitePhongMaterial)
+
+export default function Globe({ fromProvider, withProvider, providers, camTilt = 20, camZoom = 2.3 }) {
   const meshRef = useRef(null)
   const camFov = useRef(50)
 
-  const Globe = useMemo(
-    () =>
-      new ThreeGlobe({ waitForGlobeReady: true, animateIn: false })
-        .showGlobe(true)
-        .hexPolygonsData([land])
-        .hexPolygonResolution(3)
-        .hexPolygonMargin(0.1)
-        .hexPolygonCurvatureResolution(1)
-        .hexPolygonsTransitionDuration(500)
-        .hexPolygonColor(() => '#0C80AA') // primary-dark
-        .atmosphereColor('#0C80AA') // primary
-        .atmosphereAltitude(0.14)
-        .globeMaterial(whitePhongMaterial),
-    [],
-  )
+  function globeCoords(provider, highlight) {
+    return provider?.location ? { lat: provider.location.lat, lng: provider.location.lon, highlight } : null
+  }
 
-  const fromCoords = useMemo(
-    () => (fromProvider ? { lat: fromProvider.location?.lat || 0, lng: fromProvider.location?.lon || 0 } : null),
-    [fromProvider],
-  )
-  const toCoords = useMemo(
-    () => (withProvider ? { lat: withProvider.location?.lat || 0, lng: withProvider.location?.lon || 0 } : null),
-    [withProvider],
+  const fromCoords = globeCoords(fromProvider, true)
+  const toCoords = globeCoords(withProvider, true)
+  const otherProviders = providers.filter((p) => !areEqual(p, fromProvider) && !areEqual(p, withProvider))
+  const randomConnections = useMemo(
+    () =>
+      otherProviders
+        .sort(() => 0.5 - Math.random())
+        .map((p1, i) =>
+          Math.random() > 0.5
+            ? otherProviders
+                .slice(i, Math.floor(Math.random() * 1000) % otherProviders.length)
+                .map((p2) => (Math.random() > 0.5 ? [p1, p2] : [p1, p2]))
+            : [],
+        )
+        .flat()
+        .filter(([p1, p2]) => !areEqual(p1, p2))
+        .map(([p1, p2]) => {
+          const { lat: startLat, lng: startLng } = globeCoords(p1)
+          const { lat: endLat, lng: endLng } = globeCoords(p2)
+          return {
+            startLat,
+            startLng,
+            endLat,
+            endLng,
+            color: '#c7e8f9',
+          }
+        }),
+    [otherProviders],
   )
 
   useEffect(() => {
     if (fromCoords) {
       const ringColor = (t) => `rgba(10, 10, 10, ${Math.sqrt(1 - t)})`
 
-      Globe.ringsData([{ ...fromCoords, maxR: 4, propagationSpeed: 1.2, repeatPeriod: 1000 }])
+      GlobeObj.ringsData([{ ...fromCoords, maxR: 2, propagationSpeed: 0.5, repeatPeriod: 1000 }])
         .ringColor(() => ringColor)
         .ringMaxRadius('maxR')
         .ringPropagationSpeed('propagationSpeed')
         .ringRepeatPeriod('repeatPeriod')
+        .arcsData(randomConnections)
+        .arcColor('color')
+        .arcDashLength((d) => (d.highlight ? 0.4 : 0.02))
+        .arcStroke((d) => (d.highlight ? 0.5 : 0.2))
+        .arcDashGap(0.03)
+        .arcAltitudeAutoScale((d) => (d.highlight ? 1 : 0.5))
+        .arcDashInitialGap((d) => (d.highlight ? 1 : 0))
+        .arcDashAnimateTime((d) => (d.highlight ? 4000 : 6000))
     }
-  }, [fromCoords, Globe])
+  }, [fromCoords, randomConnections])
 
   useEffect(() => {
-    Globe.hexBinPointsData([...(fromCoords ? [fromCoords] : []), ...(toCoords ? [toCoords] : [])])
-      .hexBinPointWeight(3)
+    GlobeObj.hexBinPointsData([
+      ...otherProviders.map((p) => globeCoords(p)),
+      ...(fromCoords ? [fromCoords] : []),
+      ...(toCoords ? [toCoords] : []),
+    ])
+      .hexBinPointWeight((d) => (!d.highlight ? Math.random() + 0.3 : 5))
       .hexBinResolution(3)
       .hexMargin(0.1)
-      .hexTopColor((d) => (d.isTarget ? 'green' : '#243548'))
-      .hexSideColor((d) => (d.isTarget ? 'green' : 'rgba(255,100,50,1)'))
+      .hexTopColor((d) => (!d.points.some((p) => p.highlight) ? '#46576A' : '#243548'))
+      .hexSideColor((d) => (!d.points.some((p) => p.highlight) ? '#c3e4f5' : 'rgba(255,100,50,1)'))
       .hexBinMerge(false)
 
     if (toCoords) {
-      Globe.arcsData([
+      GlobeObj.arcsData([
+        ...randomConnections,
         {
           startLat: fromCoords.lat,
           startLng: fromCoords.lng,
           endLat: toCoords.lat,
           endLng: toCoords.lng,
           color: '#243548',
+          highlight: true,
         },
       ])
-        .arcColor('color')
-        .arcDashLength(0.078)
-        .arcStroke(0.3)
-        .arcDashGap(() => 0.03)
-        .arcAltitudeAutoScale(1)
-        .arcDashInitialGap(() => 1.2)
-        .arcDashAnimateTime(4000)
     }
-  }, [fromCoords, toCoords, Globe])
+  }, [fromCoords, toCoords, randomConnections, otherProviders])
 
   useEffect(() => {
-    const { x: fromX, y: fromY, z: fromZ } = Globe.getCoords(fromCoords.lat, fromCoords.lng, 1.5)
+    const { x: fromX, y: fromY, z: fromZ } = GlobeObj.getCoords(fromCoords.lat, fromCoords.lng, 1.5)
 
     if (toCoords) {
-      const { x: toX, y: toY, z: toZ } = Globe.getCoords(toCoords.lat, toCoords.lng, Math.max(0.2, 1.5 - camZoom))
+      const { x: toX, y: toY, z: toZ } = GlobeObj.getCoords(toCoords.lat, toCoords.lng, Math.max(0.2, 1.5 - camZoom))
       siteCamPosition.set((fromX + toX) / 2 - camTilt * 1.2, (fromY + toY) / 2 + camTilt, (fromZ + toZ) / 2)
       camFov.current = 45
     } else {
       siteCamPosition.set(fromX - camTilt * 1.2, fromY + camTilt, fromZ)
       camFov.current = 50
     }
-  }, [fromCoords, toCoords, Globe, camTilt, camZoom])
+  }, [fromCoords, toCoords, camTilt, camZoom])
 
   useFrame((state) => {
     // const step = 0.1
@@ -103,5 +132,5 @@ export default function Globe({ fromProvider, withProvider, camTilt = 20, camZoo
     }
     state.camera.updateProjectionMatrix()
   })
-  return <primitive ref={meshRef} object={Globe} position={[0, 0, 0]} />
+  return <primitive ref={meshRef} object={GlobeObj} position={[0, 0, 0]} />
 }

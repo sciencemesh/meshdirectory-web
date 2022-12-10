@@ -49,7 +49,7 @@ export default function App({ Component, pageProps = { title: 'index' } }) {
           />
         )}
         {propsValid && Component?.canvas && (
-          <Scene className='hidden sm:block !absolute !top-0 !left-0 !pointer-events-none !overflow-visible !h-[100vh] !w-screen'>
+          <Scene className='hidden sm:block !absolute !top-0 !left-0  !overflow-visible !h-[100vh] !w-screen'>
             {Component.canvas({ ...pageProps, fromProvider, withProvider })}
           </Scene>
         )}

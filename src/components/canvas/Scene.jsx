@@ -1,5 +1,5 @@
 import { Canvas } from '@react-three/fiber'
-import { Preload } from '@react-three/drei'
+import { Preload, OrbitControls } from '@react-three/drei'
 
 export default function Scene({ children, ...props }) {
   // Everything defined in here will persist between route changes, only children are swapped
@@ -9,6 +9,7 @@ export default function Scene({ children, ...props }) {
       <directionalLight angle={0.15} penumbra={1.2} position={[800, 85, 100]} intensity={2.8} />
       {children}
       <Preload all />
+      <OrbitControls />
     </Canvas>
   )
 }
