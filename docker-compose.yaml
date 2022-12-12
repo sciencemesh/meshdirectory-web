@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  node:
+    build: .
+    environment:
+      IOP_HOST: revad:19000
+      IOP_INSECURE: true
+    volumes:
+      - ./:/app/
+    ports:
+      - '127.0.0.1:3000:3000'
+  revad:
+    image: cs3org/revad:latest
+    volumes:
+      - './example/:/etc/revad/'
+      - './example/tmp/:/var/tmp/'

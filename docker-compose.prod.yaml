@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  node:
+    build: .
+    command: yarn run start
+    container_name: meshdirectory
+    environment:
+      IOP_HOST: iop-gateway:19000
+    volumes:
+      - ./:/app/
+    ports:
+      - '127.0.0.1:3000:3000'
+  revad:
+    container_name: revad
+    image: cs3org/revad:latest
+    volumes:
+      - './example/:/etc/revad/'
+      - './example/tmp/:/var/tmp/'
