@@ -11,7 +11,7 @@ services:
     ports:
       - '127.0.0.1:3000:3000'
   revad:
-    image: cs3org/revad:latest
+    image: cs3org/revad:v1.21.0
     volumes:
       - './example/:/etc/revad/'
       - './example/tmp/:/var/tmp/'
