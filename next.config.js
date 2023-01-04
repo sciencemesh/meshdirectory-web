@@ -2,10 +2,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 })
 
-const withPWA = require('next-pwa')({
-  dest: 'public',
-  disable: process.env.NODE_ENV === 'development',
-})
+const { createSecureHeaders } = require("next-secure-headers");
 
 const nextConfig = {
   // uncomment the following snippet if using styled components
@@ -16,7 +13,11 @@ const nextConfig = {
   assetPrefix: '/iop/meshdir',
   experimental: {},
   images: {},
+  productionBrowserSourceMaps: true,
   reactStrictMode: true, // Recommended for the `pages` directory, default in `app`.
+  async headers () {
+    return [{ source: "/(.*)", headers: createSecureHeaders() }];
+  },
   webpack (config, { isServer }) {
     // audio support
     config.module.rules.push({
@@ -35,13 +36,6 @@ const nextConfig = {
           },
         },
       ],
-    })
-
-    // shader support
-    config.module.rules.push({
-      test: /\.(glsl|vs|fs|vert|frag)$/,
-      exclude: /node_modules/,
-      use: ['raw-loader', 'glslify-loader'],
     })
 
     return config
