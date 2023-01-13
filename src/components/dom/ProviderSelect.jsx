@@ -53,7 +53,7 @@ export default function ProviderSelect({ providers, selected, onChange }) {
     setGeoLoading(true)
     navigator.geolocation.getCurrentPosition((position) => {
       setGeoLoading(false)
-      const myLocation = { lat: position.coords.latitude, lon: position.coords.longitude }
+      const myLocation = { lat: position.coords.latitude, lng: position.coords.longitude }
       const { provider: nearestProvider } = providers
         .map((p) => ({ provider: p, dist: geoDistance(myLocation, p.location) }))
         .reduce((prev, curr) => (prev.dist > curr.dist ? curr : prev))

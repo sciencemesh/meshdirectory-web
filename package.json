@@ -6,7 +6,7 @@
   ],
   "license": "MIT",
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "scripts": {
     "lint": "yarn prettier && yarn eslint",
@@ -32,6 +32,7 @@
     "next-pwa": "^5.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-error-boundary": "^3.1.4",
     "react-icons": "^4.6.0",
     "react-merge-refs": "^2.0.1",
     "three": "^0.146.0",
