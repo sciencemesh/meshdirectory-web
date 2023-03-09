@@ -3,8 +3,10 @@ import dynamic from 'next/dynamic'
 import Header, { titleDefault } from '@/config'
 import Layout from '@/components/dom/Layout'
 import Error from '@/pages/_error'
+import { ErrorBoundary } from 'react-error-boundary'
 import { useRouter } from 'next/router'
 import '@/styles/index.css'
+import GlobeError from '@/components/dom/GlobeError'
 
 const Scene = dynamic(() => import('@/components/canvas/Scene'), { ssr: true, suspense: true })
 
@@ -49,9 +51,11 @@ export default function App({ Component, pageProps = { title: 'index' } }) {
           />
         )}
         {propsValid && Component?.canvas && (
-          <Scene className='hidden sm:block !absolute !top-0 !left-0  !overflow-visible !h-[100vh] !w-screen'>
-            {Component.canvas({ ...pageProps, fromProvider, withProvider })}
-          </Scene>
+          <ErrorBoundary FallbackComponent={GlobeError} onReset={() => {}}>
+            <Scene className='hidden sm:block !absolute !top-0 !left-0  !overflow-visible !h-[100vh] !w-screen'>
+              {Component.canvas({ ...pageProps, fromProvider, withProvider })}
+            </Scene>
+          </ErrorBoundary>
         )}
       </Layout>
     </>
