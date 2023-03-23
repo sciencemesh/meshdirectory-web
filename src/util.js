@@ -29,6 +29,11 @@ function promisifyAll (client) {
 
 function getInviteAPI (provider, action) {
   const { servicesList } = provider
+  if (!servicesList) {
+    console.warn(`Failed to getInviteAPI. ${provider.name} has no services.`)
+    return
+  }
+
   const sciencemeshAppService = servicesList.find((s) => s.endpoint?.type?.name.toLowerCase() === 'efss_webapp')
   const ocmApiFallbackService = servicesList.find((s) => s.endpoint?.type?.name.toLowerCase() === 'ocm')
 

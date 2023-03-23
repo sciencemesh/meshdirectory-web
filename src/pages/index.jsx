@@ -110,7 +110,7 @@ export async function getStaticProps() {
           : [],
       )
       .flat()
-      .filter(([p1, p2]) => !areEqual(p1, p2))
+      .filter(([p1, p2]) => !areEqual(p1, p2) && p1.location && p2.location)
       .map(([p1, p2]) => {
         const { lat: startLat, lng: startLng } = p1.location
         const { lat: endLat, lng: endLng } = p2.location
