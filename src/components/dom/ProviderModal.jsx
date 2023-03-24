@@ -49,9 +49,9 @@ export default function ProviderModal({ provider, close }) {
                   <Dialog.Panel className='w-full max-w-md p-6 overflow-hidden text-left align-middle bg-white shadow-xl transform rounded-2xl transition-all'>
                     <Dialog.Title as='h3' className='text-xl font-medium text-gray-900 border-b-2 leading-6'>
                       <span className='mr-2 font-bold'>{fullName}</span>
-                      <span className='font-light text-gray-500'> site info</span>
+                      <span className='font-light text-gray-500'>Site info</span>
                     </Dialog.Title>
-                    <div className='mt-2 text-sm text-gray-500 space-y-4'>
+                    <div className='px-2 mt-2 text-sm text-gray-500 space-y-4'>
                       <p className='text-lg'>{description}</p>
                       {homepage && (
                         <div>
