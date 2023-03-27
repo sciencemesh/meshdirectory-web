@@ -98,37 +98,12 @@ export async function getStaticProps() {
         }
       }),
     )
-
-    // Used by Mesh Globe
-    randomProviderConnections = providers
-      .sort(() => 0.5 - Math.random())
-      .map((p1, i) =>
-        Math.random() > 0.5
-          ? providers
-              .slice(i, Math.floor(Math.random() * 1000) % providers.length)
-              .map((p2) => (Math.random() > 0.5 ? [p1, p2] : [p1, p2]))
-          : [],
-      )
-      .flat()
-      .filter(([p1, p2]) => !areEqual(p1, p2) && p1.location && p2.location)
-      .map(([p1, p2]) => {
-        const { lat: startLat, lng: startLng } = p1.location
-        const { lat: endLat, lng: endLng } = p2.location
-        return {
-          startLat,
-          startLng,
-          endLat,
-          endLng,
-          color: '#c7e8f9',
-        }
-      })
   }
 
   return {
     props: {
       title: 'Accept invite',
       providers,
-      randomProviderConnections,
       error: isRejected(status)
         ? { status: 500, code: error.code, message: error.message, details: error.details, stack: error.stack }
         : null,
@@ -136,9 +111,7 @@ export async function getStaticProps() {
     },
     // Next.js will attempt to re-generate the page:
     // - When a request comes in
-    // - At most once every 1min
-    // TODO: raise revalidation interval when intensive debugging won't be
-    // needed anymore
-    revalidate: 60,
+    // - At most once every 30min
+    revalidate: 1800,
   }
 }
