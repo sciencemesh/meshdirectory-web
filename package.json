@@ -47,7 +47,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-tailwind": "^0.2.1",
     "file-loader": "^6.2.0",
-    "mapshaper": "^0.6.9",
+    "mapshaper": "^0.6.44",
     "next-secure-headers": "^2.2.0",
     "postcss": "^8.4.31",
     "prettier": "^2.7.1",

@@ -4418,10 +4418,10 @@ make-dir@^3.0.2, make-dir@^3.1.0:
   dependencies:
     semver "^6.0.0"
 
-mapshaper@^0.6.9:
-  version "0.6.25"
-  resolved "https://registry.yarnpkg.com/mapshaper/-/mapshaper-0.6.25.tgz#dedd7fb54dddd0e3f4af8e72bbb5745efc6bc82d"
-  integrity sha512-Np5LImN5Pdnp1R1H9RMoAZj0MA8parOmVj4MIFuHl1xQ1vNMDRC4ZvtAFYNqeOEncsUZqsMsBHjxCehi4qcWvw==
+mapshaper@^0.6.44:
+  version "0.6.44"
+  resolved "https://registry.yarnpkg.com/mapshaper/-/mapshaper-0.6.44.tgz#79d334ab89dbca72d57c12cd0500b842f4cdd9c5"
+  integrity sha512-dbwMPBZtY/v2xTg7lF92out77rYiX4zxBgf8F94sjBqsDvnXZvy8MAbxZuVcVWPU3wkuh7ffWitj2M/5xDU8mA==
   dependencies:
     "@placemarkio/tokml" "^0.3.3"
     "@tmcw/togeojson" "^5.6.0"
@@ -4439,7 +4439,7 @@ mapshaper@^0.6.9:
     iconv-lite "^0.6.3"
     idb-keyval "^6.2.0"
     kdbush "^3.0.0"
-    mproj "0.0.35"
+    mproj "0.0.37"
     msgpackr "^1.8.5"
     opn "^5.3.0"
     rw "~1.3.3"
@@ -4544,10 +4544,10 @@ mmd-parser@^1.0.4:
   resolved "https://registry.yarnpkg.com/mmd-parser/-/mmd-parser-1.0.4.tgz#87cc05782cb5974ca854f0303fc5147bc9d690e7"
   integrity sha512-Qi0VCU46t2IwfGv5KF0+D/t9cizcDug7qnNoy9Ggk7aucp0tssV8IwTMkBlDbm+VqAf3cdQHTCARKSsuS2MYFg==
 
-mproj@0.0.35:
-  version "0.0.35"
-  resolved "https://registry.yarnpkg.com/mproj/-/mproj-0.0.35.tgz#8a9f8f5e9822c530691476c951dc126fbce084ca"
-  integrity sha512-xqO9BXjTezwyPFbAShWRkYZ98DD9wWOyr86WX6miWq3brBNGypsErMmobpUx3G45SrfvyJ5jI997Zw0qr7Ko7A==
+mproj@0.0.37:
+  version "0.0.37"
+  resolved "https://registry.yarnpkg.com/mproj/-/mproj-0.0.37.tgz#19eef15bf1cb940d23590d19a32142c816cb785e"
+  integrity sha512-UtLQa2UyFQJuwqpLWd6TF3xYNE7nGTQWvwtXHBdpEAn8F/QHP1yTjqvo2CaQem9LcSQoiZLCHP1fRU4uCWzBVw==
   dependencies:
     geographiclib "1.48.0"
     rw "~1.3.2"
