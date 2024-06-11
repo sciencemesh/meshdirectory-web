@@ -23,7 +23,7 @@
     "@cs3org/cs3apis": "^0.0.62",
     "@cs3org/node-cs3apis": "^0.0.53",
     "@fontsource/source-sans-pro": "^4.5.11",
-    "@grpc/grpc-js": "^1.7.3",
+    "@grpc/grpc-js": "^1.8.22",
     "@headlessui/react": "^1.7.4",
     "@react-three/drei": "^9.40.0",
     "@react-three/fiber": "^8.9.0",
